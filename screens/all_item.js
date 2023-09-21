@@ -2,37 +2,37 @@ import { SectionList, StyleSheet, Text, View } from 'react-native'
 import { Avatar, Card, IconButton } from 'react-native-paper';
 import React from 'react'
 //  data: ['Facebook', 'Instagram', 'Google'],
-export default function all_item() {
+export default function all_item({ navigation }) {
   const data = [{
     title: 'FAVORITES',
     data: [{
       title: 'Facebook',
       subtitle: 'Facebook subtitle',
-      icon:'facebook'
+      icon: 'facebook'
     },
     {
       title: 'Instagram',
       subtitle: 'Instagram subtitle',
-      icon:'instagram'
+      icon: 'instagram'
     },
     {
       title: 'Google',
       subtitle: 'Google subtitle',
-      icon:'google'
+      icon: 'google'
     },
     {
       title: 'TikTok',
       subtitle: 'TikTok subtitle',
-      icon:'tiktok'
+      icon: 'tiktok'
     }],
-    
+
   },
   {
     title: 'TYPES',
     data: [{
       title: 'Card',
       subtitle: 'Card subtitle',
-      
+
     },
     {
       title: 'log in',
@@ -61,7 +61,7 @@ export default function all_item() {
       title: 'FOLDER3',
       subtitle: 'FOLDER3 subtitle'
     },
-   ],
+    ],
   },
   ]
   return (
@@ -72,7 +72,14 @@ export default function all_item() {
           title={item.title}
           subtitle={item.subtitle}
           left={(props) => <Avatar.Icon {...props} icon={item.icon ? item.icon : 'folder'} />}
-          right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => { }} />}
+          right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => {
+            navigation.navigate({
+              name: 'View_item', 
+              params: {
+                type:item.title
+              }
+            })
+          }} />}
         />}
         renderSectionHeader={({ section }) => (
           <Text style={styles.sectionHeader}>{section.title}</Text>
