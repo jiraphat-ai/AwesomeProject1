@@ -143,7 +143,7 @@ function CustomNavigationBar({ navigation, back, route }) {
         <Text style={{ textAlign: 'center' , color: 'black', backgroundColor: 'black', fontWeight: 'bold' , padding: 10 }}>MENU</Text>
         </Menu.Item>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="th" size={20} color="black" />
+        <Icon name="th" size={20} color="black" paddingLeft={10}/>
         <Menu.Item onPress={() => navigation.navigate('all_item')} title="All item"
         style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
         /></View>
