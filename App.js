@@ -82,10 +82,10 @@ function App() {
 
         }}
       />
-      <Stack.Screen name="all_item" component={all_item}
+      <Stack.Screen name="All item" component={all_item}
         
         options={{
-          title: 'Delete',
+          title: 'All item',
           headerStyle: {
             backgroundColor: '#369EFF',
           },
@@ -99,7 +99,7 @@ function App() {
 
         }}
       />
-        <Stack.Screen name="View_item" component={View_item}
+        <Stack.Screen name="View_item" component={View_item} 
         
         options={{
           title: 'Delete',
@@ -143,7 +143,7 @@ function CustomNavigationBar({ navigation, back, route }) {
         <Text style={{ textAlign: 'center' , color: 'black', backgroundColor: 'black', fontWeight: 'bold' , padding: 10 }}>MENU</Text>
         </Menu.Item>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="th" size={20} color="black" paddingLeft={10}/>
+        <Icon name="th" size={20} color="black" />
         <Menu.Item onPress={() => navigation.navigate('all_item')} title="All item"
         style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
         /></View>
