@@ -13,6 +13,7 @@ import Add_password from './screens/add_password';
 import { AppRegistry } from 'react-native';
 import Home from './screens/Home';
 import View_item from './screens/View_item';
+import all_item from './screens/all_item';
 
 
 const Stack = createNativeStackNavigator();
@@ -46,6 +47,23 @@ function App() {
         />
 
         <Stack.Screen name="Delete" component={Delete}
+        
+        options={{
+          title: 'Delete',
+          headerStyle: {
+            backgroundColor: '#369EFF',
+          },
+          headerTintColor: '#000',
+          headerTitleAlign: 'center', 
+          headerTitleStyle: {
+          },
+          footterStyle: {
+            backgroundColor: '#369EFF',
+          },
+
+        }}
+      />
+      <Stack.Screen name="all_item" component={all_item}
         
         options={{
           title: 'Delete',
@@ -105,22 +123,50 @@ function CustomNavigationBar({ navigation, back, route }) {
           <Menu.Item disabled title="MENU">
         <Text style={{ textAlign: 'center' , color: 'black', backgroundColor: 'black', fontWeight: 'bold' , padding: 10 }}>MENU</Text>
         </Menu.Item>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
-        <Menu.Item onPress={() => {navigation.navigate('View_item')}} title="All item" />
-        <Icon name="th" size={20} color="black" /></View>
-        <Menu.Item onPress={() => { console.log('Option 2 was pressed') }} title="Favorites" />
-        <Menu.Item onPress={() => {navigation.navigate('Delete')}} title="Delete" />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="th" size={20} color="black" />
+        <Menu.Item onPress={() => navigation.navigate('all_item')} title="All item"
+        style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="star" size={20} color="black" />
+        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Favorites"
+        style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="trash-o" size={20} color="black" />
+        <Menu.Item onPress={() => navigation.navigate('Delete')} title="Delete"
+        style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
 
         <Menu.Item disabled title="Types">
         <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}>Types</Text>
         </Menu.Item>
-        <Menu.Item onPress={() => { console.log('Option 4 was pressed') }} title="Card" />
-        <Menu.Item onPress={() => { console.log('Option 5 was pressed') }} title="Login" />
-        <Menu.Item onPress={() => { console.log('Option 6 was pressed') }} title="Identity" />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="credit-card-alt" size={20} color="black" />
+        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Card"
+        style={{ paddingLeft: 3 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="arrow-circle-o-right" size={20} color="black" />
+        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Login"
+        style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="check-square-o" size={20} color="black" />
+        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Identity"
+        style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
+        
+
         <Menu.Item disabled title="Folders">
         <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}></Text>
         </Menu.Item>
-        <Menu.Item onPress={() => { console.log('Option 6 was pressed') }} title="No Folders" />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Icon name="folder" size={20} color="black" />
+        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="No Folders"
+        style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+        /></View>
         </Menu>
       ) : null}
     </Appbar.Header>
