@@ -5,8 +5,11 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'rea
 import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { CheckBox } from 'react-native-elements';
+import { Appbar, Menu } from 'react-native-paper';
 import Add_password from './screens/add_password';
+import { AppRegistry } from 'react-native';
 
 
 const Stack = createNativeStackNavigator();
@@ -149,11 +152,16 @@ function HomeScreen() {
 //หัวฟ้า
 function App() {
   return (
+    
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home"
+        screenOptions={{
+          header: CustomNavigationBar,
+        }}>
         <Stack.Screen name="Add Password" component={Add_password}
+        
           options={{
-            title: 'My Passwordd',
+            title: 'My Password',
             headerStyle: {
               backgroundColor: '#369EFF',
             },
@@ -171,15 +179,15 @@ function App() {
   );
 }
 
-function CustomNavigationBar({ navigation, back }) {
+function CustomNavigationBar({ navigation, back  ,route }) {
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
 
   return (
-    <Appbar.Header>
+    <Appbar.Header style={{backgroundColor:'#369EFF'}} >
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title="My awesome app" />
+      <Appbar.Content title={route.name} />
       {!back ? (
         <Menu
           visible={visible}
@@ -228,4 +236,10 @@ const buttonStyle = StyleSheet.create({
   }});
   
 
-export default App;
+export default function Main() {
+  return (
+    <PaperProvider>
+      <App />
+    </PaperProvider>
+  );
+}
