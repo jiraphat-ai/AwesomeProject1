@@ -59,7 +59,7 @@ function HomeScreen() {
   const handleAddPassword = () => {
     console.log('ข้อความ:', textValue);
     console.log('รายการที่เลือก:', selectedItemValue);
-
+//tt
     // ส่วนการบันทึกรายการรหัสผ่านลงในฐานข้อมูลหรือสตอเรจ
   };
 
