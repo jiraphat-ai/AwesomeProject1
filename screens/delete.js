@@ -46,7 +46,7 @@ function RecordList() {
             }}
           >
             <div> <View style={{ flexDirection: 'row', alignItems: 'left' }}>
-                  <Icon name="trash-o" fade size={20} color="black" />
+                  <Icon name="google" fade size={20} color="black" />
               </View></div>
             <div>
              <div> <Text >{item}</Text></div> 
