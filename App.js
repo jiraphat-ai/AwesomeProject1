@@ -153,7 +153,7 @@ function App() {
       <Stack.Navigator>
         <Stack.Screen name="Add Password" component={Add_password}
           options={{
-            title: 'My Password',
+            title: 'My Passwordd',
             headerStyle: {
               backgroundColor: '#369EFF',
             },
