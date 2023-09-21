@@ -187,7 +187,7 @@ function CustomNavigationBar({ navigation, back  ,route }) {
   return (
     <Appbar.Header style={{backgroundColor:'#369EFF'}} >
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title={route.name} />
+      <Appbar.Content title={route.name}  style={{alignItems:'center'}}/>
       {!back ? (
         <Menu
           visible={visible}
