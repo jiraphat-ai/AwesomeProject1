@@ -180,26 +180,38 @@ function App() {
   );
 }
 
-function CustomNavigationBar({ navigation, back  ,route }) {
+function CustomNavigationBar({ navigation, back, route }) {
   const [visible, setVisible] = React.useState(false);
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
 
   return (
-    <Appbar.Header style={{backgroundColor:'#369EFF',alignItems: 'center'}} >
-      {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title={route.name}  style={{alignItems:'center'}}/>
+    <Appbar.Header style={{ backgroundColor: '#369EFF' }}>
+      <View style={{ flexDirection: 'row', alignItems: '', flex: 1 }}>
+        {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
+        <Appbar.Content title={route.name} style={{ alignItems: 'center' }} />
+      </View>
       {!back ? (
         <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-          anchor={
-            <Appbar.Action icon="menu" color="white" onPress={openMenu} />
-          }>
-          <Menu.Item onPress={() => {console.log('Option 1 was pressed')}} title="Option 1" />
-          <Menu.Item onPress={() => {console.log('Option 2 was pressed')}} title="Option 2" />
-          <Menu.Item onPress={() => {console.log('Option 3 was pressed')}} title="Option 3" disabled />
-        </Menu>
+        visible={visible}
+        onDismiss={closeMenu}
+        anchor={
+          <Appbar.Action icon="menu" color="white" onPress={openMenu} style={{ alignItems: 'flex-start' }} />
+        }>
+        <Menu.Item disabled title="MENU">
+        <Text style={{ color: 'black', backgroundColor: 'black', fontWeight: 'bold' , padding: 10 }}>MENU</Text>
+        </Menu.Item>
+        <Menu.Item onPress={() => { console.log('Option 1 was pressed') }} title="All Items" />
+        <Menu.Item onPress={() => { console.log('Option 2 was pressed') }} title="Favorites" />
+        <Menu.Item onPress={() => { console.log('Option 3 was pressed') }} title="Delete" />
+        <Menu.Item disabled title="Types">
+        <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}>Types</Text>
+        </Menu.Item>
+        <Menu.Item onPress={() => { console.log('Option 4 was pressed') }} title="Card" />
+        <Menu.Item onPress={() => { console.log('Option 5 was pressed') }} title="Login" />
+        <Menu.Item onPress={() => { console.log('Option 6 was pressed') }} title="Identity" />
+      </Menu>
+      
       ) : null}
     </Appbar.Header>
   );
