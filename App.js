@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { CheckBox } from 'react-native-elements';
 import { Appbar, Menu } from 'react-native-paper';
+import Delete from './screens/delete';
 import Add_password from './screens/add_password';
 import { AppRegistry } from 'react-native';
 
@@ -154,6 +155,7 @@ function App() {
   return (
     
     <NavigationContainer>
+
       <Stack.Navigator initialRouteName="Home"
         screenOptions={{
           header: CustomNavigationBar,
@@ -175,6 +177,24 @@ function App() {
 
           }}
         />
+
+        <Stack.Screen name="Delete" component={Delete}
+        
+        options={{
+          title: 'Delete',
+          headerStyle: {
+            backgroundColor: '#369EFF',
+          },
+          headerTintColor: '#000',
+          headerTitleAlign: 'center', 
+          headerTitleStyle: {
+          },
+          footterStyle: {
+            backgroundColor: '#369EFF',
+          },
+
+        }}
+      />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -197,7 +217,7 @@ function CustomNavigationBar({ navigation, back  ,route }) {
             <Appbar.Action icon="menu" color="white" onPress={openMenu} />
           }>
           <Menu.Item onPress={() => {console.log('Option 1 was pressed')}} title="Option 1" />
-          <Menu.Item onPress={() => {console.log('Option 2 was pressed')}} title="Option 2" />
+          <Menu.Item onPress={() => {navigation.navigate('Delete')}} title="Option 2" />
           <Menu.Item onPress={() => {console.log('Option 3 was pressed')}} title="Option 3" disabled />
         </Menu>
       ) : null}
