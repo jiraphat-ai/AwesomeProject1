@@ -166,6 +166,7 @@ function App() {
               backgroundColor: '#369EFF',
             },
             headerTintColor: '#000',
+            headerTitleAlign: 'center', // จัดตำแหน่งให้ข้อความอยู่ตรงกลา
             headerTitleStyle: {
             },
             footterStyle: {
@@ -185,7 +186,7 @@ function CustomNavigationBar({ navigation, back  ,route }) {
   const closeMenu = () => setVisible(false);
 
   return (
-    <Appbar.Header style={{backgroundColor:'#369EFF'}} >
+    <Appbar.Header style={{backgroundColor:'#369EFF',alignItems: 'center'}} >
       {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
       <Appbar.Content title={route.name} />
       {!back ? (
