@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { CheckBox } from 'react-native-elements';
 import { Appbar, Menu } from 'react-native-paper';
+import Delete from './screens/delete';
 import Add_password from './screens/add_password';
 import { AppRegistry } from 'react-native';
 
@@ -154,6 +155,7 @@ function App() {
   return (
     
     <NavigationContainer>
+
       <Stack.Navigator initialRouteName="Home"
         screenOptions={{
           header: CustomNavigationBar,
@@ -175,6 +177,24 @@ function App() {
 
           }}
         />
+
+        <Stack.Screen name="Delete" component={Delete}
+        
+        options={{
+          title: 'Delete',
+          headerStyle: {
+            backgroundColor: '#369EFF',
+          },
+          headerTintColor: '#000',
+          headerTitleAlign: 'center', 
+          headerTitleStyle: {
+          },
+          footterStyle: {
+            backgroundColor: '#369EFF',
+          },
+
+        }}
+      />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -193,25 +213,25 @@ function CustomNavigationBar({ navigation, back, route }) {
       </View>
       {!back ? (
         <Menu
-        visible={visible}
-        onDismiss={closeMenu}
-        anchor={
-          <Appbar.Action icon="menu" color="white" onPress={openMenu} style={{ alignItems: 'flex-start' }} />
-        }>
-        <Menu.Item disabled title="MENU">
+          visible={visible}
+          onDismiss={closeMenu}
+          anchor={
+            <Appbar.Action icon="menu" color="white" onPress={openMenu} />
+          }>
+          <Menu.Item disabled title="MENU">
         <Text style={{ color: 'black', backgroundColor: 'black', fontWeight: 'bold' , padding: 10 }}>MENU</Text>
         </Menu.Item>
         <Menu.Item onPress={() => { console.log('Option 1 was pressed') }} title="All Items" />
         <Menu.Item onPress={() => { console.log('Option 2 was pressed') }} title="Favorites" />
-        <Menu.Item onPress={() => { console.log('Option 3 was pressed') }} title="Delete" />
+        <Menu.Item onPress={() => {navigation.navigate('Delete')}} title="Delete" />
+
         <Menu.Item disabled title="Types">
         <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}>Types</Text>
         </Menu.Item>
         <Menu.Item onPress={() => { console.log('Option 4 was pressed') }} title="Card" />
         <Menu.Item onPress={() => { console.log('Option 5 was pressed') }} title="Login" />
         <Menu.Item onPress={() => { console.log('Option 6 was pressed') }} title="Identity" />
-      </Menu>
-      
+        </Menu>
       ) : null}
     </Appbar.Header>
   );
