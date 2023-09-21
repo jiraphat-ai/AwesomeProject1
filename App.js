@@ -158,7 +158,7 @@ function App() {
         screenOptions={{
           header: CustomNavigationBar,
         }}>
-        <Stack.Screen name="Add Password" component={Add_password}
+        <Stack.Screen name="My Password" component={Add_password}
         
           options={{
             title: 'My Password',
