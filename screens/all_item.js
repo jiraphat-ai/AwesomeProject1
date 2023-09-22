@@ -1,4 +1,4 @@
-import { SectionList, StyleSheet, Text, View } from 'react-native'
+import { SectionList, StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
 import { Avatar, Card, IconButton } from 'react-native-paper';
 import React from 'react'
 //  data: ['Facebook', 'Instagram', 'Google'],
@@ -68,19 +68,21 @@ export default function All_item({ navigation }) {
     <View style={styles.container}>
       <SectionList
         sections={data}
-        renderItem={({ item }) => <Card.Title
+        renderItem={({ item }) => <TouchableOpacity 
+        onPress={() => {
+          navigation.navigate({
+            name: 'View_item', 
+            params: {
+              type:item.title
+            }
+          })
+        }}>
+          <Card.Title
           title={item.title}
           subtitle={item.subtitle}
           left={(props) => <Avatar.Icon {...props} icon={item.icon ? item.icon : 'folder'} />}
-          right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => {
-            navigation.navigate({
-              name: 'View_item', 
-              params: {
-                type:item.title
-              }
-            })
-          }} />}
-        />}
+          right={(props) => <IconButton {...props} icon="dots-vertical"  />}
+        /></TouchableOpacity>}
         renderSectionHeader={({ section }) => (
           <Text style={styles.sectionHeader}>{section.title}</Text>
         )}
