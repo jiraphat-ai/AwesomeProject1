@@ -45,14 +45,14 @@ function RecordList() {
               borderColor: '#ccc',
             }}
           >
-            <div> <View style={{ flexDirection: 'row', alignItems: 'left' }}>
+           <View style={{ flexDirection: 'row', alignItems: 'left' }}>
                   <Icon name="google" fade size={20} color="black" />
-              </View></div>
-            <div>
-             <div> <Text >{item}</Text></div> 
+              </View>
+           
+             <Text >{item}</Text>
             
-           <div><text>xxxxx@gmail.com</text></div>
-             </div>
+           <Text>xxxxx@gmail.com</Text>
+             
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Icon name="trash-o" fade size={20} color="black" />
               </View>
