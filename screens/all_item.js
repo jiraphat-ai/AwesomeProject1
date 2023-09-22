@@ -2,7 +2,7 @@ import { SectionList, StyleSheet, Text, View } from 'react-native'
 import { Avatar, Card, IconButton } from 'react-native-paper';
 import React from 'react'
 //  data: ['Facebook', 'Instagram', 'Google'],
-export default function all_item({ navigation }) {
+export default function All_item({ navigation }) {
   const data = [{
     title: 'FAVORITES',
     data: [{
