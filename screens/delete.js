@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, TouchableOpacity ,Image} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function RecordList() {
   const [records, setRecords] = useState([]);
@@ -22,11 +23,11 @@ function RecordList() {
     <View>
       <View>
         <TextInput
-          placeholder="เพิ่มรายการใหม่"
+          placeholder="เพิ่มรายการใหม่test"
           onChangeText={(text) => setNewRecord(text)}
           value={newRecord}
         />
-        <Button title="เพิ่ม" onPress={handleAddRecord} />
+        <Button title="เพิ่มtest" onPress={handleAddRecord} />
       </View>
 
       <FlatList
@@ -44,8 +45,18 @@ function RecordList() {
               borderColor: '#ccc',
             }}
           >
-            <Text>{item}</Text>
-           
+            <div> <View style={{ flexDirection: 'row', alignItems: 'left' }}>
+                  <Icon name="google" fade size={20} color="black" />
+              </View></div>
+            <div>
+             <div> <Text >{item}</Text></div> 
+            
+           <div><text>xxxxx@gmail.com</text></div>
+             </div>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Icon name="trash-o" fade size={20} color="black" />
+              </View>
+              
           </TouchableOpacity>
         )}
       />
