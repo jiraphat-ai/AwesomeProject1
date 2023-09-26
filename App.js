@@ -14,6 +14,8 @@ import { AppRegistry } from 'react-native';
 import Home from './screens/Home';
 import View_item from './screens/View_item';
 import all_item from './screens/all_item';
+import edit_item from './screens/edit_item';
+import floders from './screens/floders';
 
 
 const Stack = createNativeStackNavigator();
@@ -55,6 +57,42 @@ function App() {
           },
           headerTintColor: '#000',
           headerTitleAlign: 'center', // จัดตำแหน่งให้ข้อความอยู่ตรงกลา
+          headerTitleStyle: {
+          },
+          footterStyle: {
+            backgroundColor: '#369EFF',
+          },
+
+        }}
+      />
+
+      {/* <Stack.Screen name="Edit item" component={edit_item}
+        
+        options={{
+          title: 'Edit Item',
+          headerStyle: {
+            backgroundColor: '#369EFF',
+          },
+          headerTintColor: '#000',
+          headerTitleAlign: 'center', // จัดตำแหน่งให้ข้อความอยู่ตรงกลา
+          headerTitleStyle: {
+          },
+          footterStyle: {
+            backgroundColor: '#369EFF',
+          },
+
+        }}
+      /> */}
+
+    <Stack.Screen name="Folders" component={floders}
+        
+        options={{
+          title: 'Folders',
+          headerStyle: {
+            backgroundColor: '#369EFF',
+          },
+          headerTintColor: '#000',
+          headerTitleAlign: 'center', 
           headerTitleStyle: {
           },
           footterStyle: {
@@ -183,7 +221,7 @@ function CustomNavigationBar({ navigation, back, route }) {
         </Menu.Item>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Icon name="folder" size={20} color="black" paddingLeft={10} />
-        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="No Folders"
+        <Menu.Item onPress={() => navigation.navigate('Folders')} title="floders"
         style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
         /></View>
         </Menu>
