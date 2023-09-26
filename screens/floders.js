@@ -1,31 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Text, SectionList, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
-
-export default function Home({ navigation }) {
+const Folders = () => {
   const [headerText, setHeaderText] = useState('');
-  const [items, setItems] = useState([
-    { folder1: 'Folder 1', folder2: 'Folder 2' },
-  ]);
-
-  const handleAddItem = () => {
-    if (headerText) {
-      setItems([...items, { folder1: headerText, folder2: 'Another Folder' }]);
-      setHeaderText('');
-    }
-  };
-
-  const handleItemClick = (itemName) => {
-    // Handle the click on the item (e.g., navigate to a new screen or perform an action)
-  };
-
+  // const [data, setItem] = useState(['Folder1','Folders2','Folders3']);
+ const data = ['Folder1','Folders2','Folders3','Folder1','Folders2','Folders3'];
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+       <View style={styles.header}>
         <Icon name="search" size={24} color="white" style={styles.icon} />
         <TextInput
           style={styles.headerText}
@@ -35,31 +21,46 @@ export default function Home({ navigation }) {
           placeholderTextColor="white"
         />
       </View>
+      
       <FlatList
-        data={items}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.row}>
-            <TouchableOpacity onPress={() => handleItemClick(item.folder1)}>
-              <View style={styles.columnCenter}>
-                <Icon name="folder" size={24} color="black" style={styles.icon} />
-                <Text style={styles.itemText}>{item.folder1}</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleItemClick(item.folder2)}>
-              <View style={styles.columnCenter}>
-                <Icon name="folder" size={24} color="black" style={styles.icon} />
-                <Text style={styles.itemText}>{item.folder2}</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        )}
+        data={data}
+        numColumns={2} // กำหนดให้แสดงเป็น 2 คอลัมน์
+      contentContainerStyle={styles.containercol}
+        renderItem={({ item }) => 
+          
+            <TouchableOpacity 
+        onPress={() => {
+          // navigation.navigate({
+          //   name: 'View_item', 
+          //   params: {
+          //     type:item.title
+          //   }
+          // })
+        }}>
+        <View style={styles.column}>
+      <Icon name="folder" size={80} color="#F4B948" style={styles.icon} />
+       <Text>{item}</Text>
+      </View></TouchableOpacity>
+     
+      }
+        keyExtractor={item => `basicListEntry-${item}`}
       />
+      
     </View>
+   
+    
   );
-}
+};
 
 const styles = StyleSheet.create({
+  containercol: {
+     alignItems:'center'
+  },
+  column: {
+    flex: 1, // คอลัมน์แต่ละคอลัมน์จะมีพื้นที่เท่ากัน
+    marginHorizontal: 48, // ระยะห่างในคอลัมน์
+    // คุณสามารถเพิ่มสไตล์เพิ่มเติมเพื่อกำหนดรูปแบบและสไตล์ในคอลัมน์แต่ละคอลัมน์ตามที่ต้องการ
+  },
   container: {
     flex: 1,
     backgroundColor: 'white',
@@ -98,3 +99,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default Folders;
