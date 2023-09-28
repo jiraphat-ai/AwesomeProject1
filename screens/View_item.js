@@ -54,7 +54,9 @@ function View_item({ navigation, route }) {
 
       <InfoItem text="Updated : " marginTop={100} color="gray" marginLeft={10} fontSize={10}/>
       <InfoItem text="Password Updated : " color="gray" marginLeft={10} fontSize={10}/>
-      <Icon name="edit" size={50} color="black" style={{ marginTop: 50, marginLeft: 350 }}/>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <Icon name="edit" size={50} color="blue" style={{ marginTop: 50, marginLeft: 300 }}/>
+      <Icon name="trash" size={50} color="red" style={{ marginTop: 45,marginLeft: 20 }}/></View>
     </View>
   );
 }
