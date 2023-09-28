@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Settings } from 'react-native';
 import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -18,6 +18,7 @@ import edit_item from './screens/edit_item';
 import floders from './screens/floders';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Gen_pass from './screens/gen_pass';
+import sett from './screens/setting';
 
 
 const Stack = createNativeStackNavigator();
@@ -29,7 +30,7 @@ function BottomTabs() {
     <Tab.Navigator>
       <Tab.Screen  name="Home" component={Home} options={{ headerShown: false }}  />
       <Tab.Screen name="Genarate Password" component={Gen_pass}  options={{ headerShown: false }}  />
-      <Tab.Screen name="Settings" component={Add_password}  options={{ headerShown: false }}  />
+      <Tab.Screen name="Settings" component={sett}  options={{ headerShown: false }}  />
 
 
     </Tab.Navigator>
