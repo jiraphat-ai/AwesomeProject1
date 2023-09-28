@@ -1,56 +1,62 @@
-import React, { Component } from 'react'
-import { FAB } from 'react-native-paper';
-import { Dimensions } from 'react-native';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function View_item({ navigation, route }) {
-  const [text, setText] = React.useState("");
-  const [passwordVisible, setPasswordVisible] = React.useState(true);
-  const screen_width = Dimensions.get('screen').width;
-  var input_label = [{
-    label: 'Name',
-    icon: <Icon style={{ padding:15, justifyContent: 'center' }} name="eye" size={20} color="black" />
-  }, {label:'Password',icon: <Icon style={{ padding:15, justifyContent: 'center' }} name="eye" size={20} color="black" />}, {label:'Url'}];
-  var inputs = [];
-  for (let i = 0; i < input_label.length; i++) {
 
-    inputs.push(
-      <View style={styles.input} key={i}>
-        <TextInput style={{ width: screen_width * 0.7 }}
-          label={input_label[i].label}
-          secureTextEntry={passwordVisible}
-          value={text}
-          right={<TextInput.Icon name={passwordVisible ? "eye" : "eye-off"} onPress={() => setPasswordVisible(!passwordVisible)} />}
-          onChangeText={text => setText(text)
-          
-          }
 
-        />
-      {input_label[i]?.icon}
-      </View>
-    )
-  }
-  return (<View>
-
-    <View style={styles.contriner}>
-      <View><Text>{route.params?.type}</Text></View>
+function InfoItem({ text, marginTop, fontWeight, color }) {
+  return (
+    <View>
+      <Text style={[styles.text, { marginTop, fontWeight, color }]}>{text}</Text>
     </View>
-
-    {inputs}
-  </View>)
+  );
 }
+
 const styles = StyleSheet.create({
-  input: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    flexDirection: 'row',
-    width: 100
+  line: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    marginTop: 10,
   },
-  contriner: {
-    padding: 20
+  text: {
+    marginLeft: 10,
+    fontSize: 20,
   }
 });
-export default View_item;
 
+function View_item({ navigation, route }) {
+  return (
+    <View>
+      <InfoItem text="Item information" marginTop={0} fontWeight="bold" color="black"/>
+      <InfoItem text="Name" marginTop={30}  />
+      <InfoItem text="email" marginTop={10} color="gray" marginLeft={10}/>
+      <View style={styles.line}></View>
+      <InfoItem text="Username" marginTop={20} />      
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <InfoItem text="" marginTop={10} color="gray"/>
+      <InfoItem text="xxx@gmail.com" marginTop={20} fontWeight="bold" color="gray" />
+      <Icon name="copy" size={20} color="black" style={{ marginLeft: 20 }} /></View>
+      <View style={styles.line}></View>
+      <InfoItem text="Password" marginTop={20} />      
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <InfoItem text="" marginTop={10} color="gray"/>
+      <InfoItem text="xxxxxxxxxx" marginTop={15} fontWeight="bold" color="gray" />
+      <Icon name="eye" size={20} color="black" style={{ marginLeft: 20 }} />
+      <Icon name="copy" size={20} color="black" style={{ marginLeft: 10 }} /></View>
+      <View style={styles.line}></View>
+      <InfoItem text="URL" marginTop={20} />      
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <InfoItem text="" marginTop={10} color="gray"/>
+      <InfoItem text="email" marginTop={20} fontWeight="bold" color="gray" />
+      <Icon name="copy" size={20} color="black" style={{ marginLeft: 20 }} /></View>
+      <View style={styles.line}></View>
+
+
+      <InfoItem text="Updated : " marginTop={100} color="gray" marginLeft={10} fontSize={10}/>
+      <InfoItem text="Password Updated : " color="gray" marginLeft={10} fontSize={10}/>
+      <Icon name="edit" size={50} color="black" style={{ marginTop: 50, marginLeft: 350 }}/>
+    </View>
+  );
+}
+
+export default View_item;
