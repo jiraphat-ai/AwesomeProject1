@@ -16,10 +16,25 @@ import View_item from './screens/View_item';
 import all_item from './screens/all_item';
 import edit_item from './screens/edit_item';
 import floders from './screens/floders';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Gen_pass from './screens/gen_pass';
 
 
 const Stack = createNativeStackNavigator();
 
+const Tab = createBottomTabNavigator();
+
+function BottomTabs() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen  name="Home" component={Home} options={{ headerShown: false }}  />
+      <Tab.Screen name="Genarate Password" component={Gen_pass}  options={{ headerShown: false }}  />
+      <Tab.Screen name="Settings" component={Add_password}  options={{ headerShown: false }}  />
+
+
+    </Tab.Navigator>
+  );
+}
 //หัวฟ้า
 function App() {
   return (
@@ -30,7 +45,7 @@ function App() {
         screenOptions={{
           header: CustomNavigationBar,
         }}>
-        <Stack.Screen name="My Password" component={Home}
+        <Stack.Screen name="My Password" component={BottomTabs}
         
           options={{
             title: 'My Password',
@@ -155,6 +170,7 @@ function App() {
         }}
       />
       </Stack.Navigator>
+   
     </NavigationContainer>
   );
 }
