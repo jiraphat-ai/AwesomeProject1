@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, FlatList, TouchableOpacity ,Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+
 function RecordList() {
   const [records, setRecords] = useState([]);
   const [newRecord, setNewRecord] = useState('');
@@ -45,14 +46,16 @@ function RecordList() {
               borderColor: '#ccc',
             }}
           >
-           <View style={{ flexDirection: 'row', alignItems: 'left' }}>
+           <View style={{ flexDirection: 'row', alignItems: 'left'}}>
+         
                   <Icon name="google" fade size={20} color="black" />
+                 
               </View>
-           
-             <Text >{item}</Text>
-            
-           <Text>xxxxx@gmail.com</Text>
+              <Text style={{ flexDirection: 'row', alignItems: 'right' }}>{item}{'\n'}{item}@gmail.com</Text>   
              
+        
+         
+          
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Icon name="trash-o" fade size={20} color="black" />
               </View>
