@@ -4,12 +4,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Add_password from './add_password';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
 
 export default function Home({ navigation }) {
   const [headerText, setHeaderText] = useState('');
   const [items, setItems] = useState([]);
   const Stack = createNativeStackNavigator();
-
+  const currentUser = FIREBASE_AUTH.currentUser;
   const handleAddItem = () => {
     if (headerText) {
       setItems([...items, headerText]);
@@ -25,7 +26,7 @@ export default function Home({ navigation }) {
           style={styles.headerText}
           value={headerText}
           onChangeText={(text) => setHeaderText(text)}
-          placeholder="Search..."
+          placeholder={"Search..."}
           placeholderTextColor="white"
         />
       </View>
@@ -43,6 +44,7 @@ export default function Home({ navigation }) {
       <Button style={{ backgroundColor: '#0483F8', justifyContent: 'center', marginTop: 100, marginHorizontal: 160 }} icon="plus" mode="contained" onPress={() => navigation.navigate('Add password')} title="add item">
         add item
       </Button>
+      <Text>{currentUser.email}</Text>
     </View>
 
   );

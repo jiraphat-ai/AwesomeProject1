@@ -17,9 +17,10 @@ export default function Login({navigation}) {
     try{
       const respones = await signInWithEmailAndPassword(auth,email,password)
       navigation.navigate('My Password');
+      global.uEmail = email;
     }
     catch(error){
-      console.log(error);
+      alert(error);
     }finally{
       
     }
