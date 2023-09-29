@@ -30,38 +30,38 @@ function BottomTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-    name="Home"
-    component={Home}
-    options={{
-      headerShown: false,
-      tabBarLabel: 'Home',
-      tabBarLabelStyle: { color: '#369EFF', fontSize: 16, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
-      tabBarIcon: ({ color, size }) => (
-        <Icon name="home" size={30} color={'#369EFF'} />
-      ),
-      }}/>
-            <Tab.Screen
-    name="Generate Password"
-    component={Gen_pass}
-    options={{
-      headerShown: false,
-      tabBarLabel: 'Gennerate Password',
-      tabBarLabelStyle: { color: '#369EFF', fontSize: 14, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
-      tabBarIcon: ({ color, size }) => (
-        <Icon name="lock" size={30} color={'#369EFF'} />
-      ),
-      }}/>
-            <Tab.Screen
-      name="Settings"
-      component={sett}
-      options={{
-      headerShown: false,
-      tabBarLabel: 'Settings',
-      tabBarLabelStyle: { color: '#369EFF', fontSize: 16, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
-      tabBarIcon: ({ color, size }) => (
-        <Icon name="cog" size={30} color={'#369EFF'} />
-      ),
-      }}/>
+        name="Home"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Home',
+          tabBarLabelStyle: { color: '#369EFF', fontSize: 16, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="home" size={30} color={'#369EFF'} />
+          ),
+        }} />
+      <Tab.Screen
+        name="Generate Password"
+        component={Gen_pass}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Gennerate Password',
+          tabBarLabelStyle: { color: '#369EFF', fontSize: 14, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="lock" size={30} color={'#369EFF'} />
+          ),
+        }} />
+      <Tab.Screen
+        name="Settings"
+        component={sett}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Settings',
+          tabBarLabelStyle: { color: '#369EFF', fontSize: 16, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="cog" size={30} color={'#369EFF'} />
+          ),
+        }} />
 
 
     </Tab.Navigator>
@@ -70,7 +70,7 @@ function BottomTabs() {
 //หัวฟ้า
 function App() {
   return (
-    
+
     <NavigationContainer>
 
       <Stack.Navigator initialRouteName="Home"
@@ -78,7 +78,7 @@ function App() {
           header: CustomNavigationBar,
         }}>
         <Stack.Screen name="My Password" component={BottomTabs}
-        
+
           options={{
             title: 'My Password',
             headerStyle: {
@@ -95,25 +95,25 @@ function App() {
           }}
         />
 
-<Stack.Screen name="Add password" component={Add_password}
-        
-        options={{
-          title: 'My Password',
-          headerStyle: {
-            backgroundColor: '#369EFF',
-          },
-          headerTintColor: '#000',
-          headerTitleAlign: 'center', // จัดตำแหน่งให้ข้อความอยู่ตรงกลา
-          headerTitleStyle: {
-          },
-          footterStyle: {
-            backgroundColor: '#369EFF',
-          },
+        <Stack.Screen name="Add password" component={Add_password}
 
-        }}
-      />
+          options={{
+            title: 'My Password',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center', // จัดตำแหน่งให้ข้อความอยู่ตรงกลา
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
 
-      {/* <Stack.Screen name="Edit item" component={edit_item}
+          }}
+        />
+
+        {/* <Stack.Screen name="Edit item" component={edit_item}
         
         options={{
           title: 'Edit Item',
@@ -131,95 +131,113 @@ function App() {
         }}
       /> */}
 
-    <Stack.Screen name="Folders" component={floders}
-        
-        options={{
-          title: 'Folders',
-          headerStyle: {
-            backgroundColor: '#369EFF',
-          },
-          headerTintColor: '#000',
-          headerTitleAlign: 'center', 
-          headerTitleStyle: {
-          },
-          footterStyle: {
-            backgroundColor: '#369EFF',
-          },
+        <Stack.Screen name="Folders" component={floders}
 
-        }}
-      />
+          options={{
+            title: 'Folders',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
+
+          }}
+        />
 
 
         <Stack.Screen name="Delete" component={Delete}
-        
-        options={{
-          title: 'Delete',
-          headerStyle: {
-            backgroundColor: '#369EFF',
-          },
-          headerTintColor: '#000',
-          headerTitleAlign: 'center', 
-          headerTitleStyle: {
-          },
-          footterStyle: {
-            backgroundColor: '#369EFF',
-          },
 
-        }}
-      />
-      <Stack.Screen name="All item" component={all_item}
-        
-        options={{
-          title: 'All item',
-          headerStyle: {
-            backgroundColor: '#369EFF',
-          },
-          headerTintColor: '#000',
-          headerTitleAlign: 'center', 
-          headerTitleStyle: {
-          },
-          footterStyle: {
-            backgroundColor: '#369EFF',
-          },
+          options={{
+            title: 'Delete',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
 
-        }}
-      />
-        <Stack.Screen name="View_item" component={View_item} 
-        
-        options={{
-          title: 'Delete',
-          headerStyle: {
-            backgroundColor: '#369EFF',
-          },
-          headerTintColor: '#000',
-          headerTitleAlign: 'center', 
-          headerTitleStyle: {
-          },
-          footterStyle: {
-            backgroundColor: '#369EFF',
-          },
+          }}
+        />
+        <Stack.Screen name="All item" component={all_item}
 
-        }}
-      />
-      <Stack.Screen name="Account_edit" component={Account_edit} 
-        
-        options={{
-          title: 'Account_edit',
-          headerStyle: {
-            backgroundColor: '#369EFF',
-          },
-          headerTintColor: '#000',
-          headerTitleAlign: 'center', 
-          headerTitleStyle: {
-          },
-          footterStyle: {
-            backgroundColor: '#369EFF',
-          },
+          options={{
+            title: 'All item',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
 
-        }}
-      />
+          }}
+        />
+        <Stack.Screen name="View_item" component={View_item}
+
+          options={{
+            title: 'Delete',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
+
+          }}
+        />
+        <Stack.Screen name="Account_edit" component={Account_edit}
+
+          options={{
+            title: 'Account_edit',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
+
+          }}
+        />
+
+        <Stack.Screen name="Edit Item" component={edit_item}
+
+          options={{
+            title: 'edit_item',
+            headerStyle: {
+              backgroundColor: '#369EFF',
+            },
+            headerTintColor: '#000',
+            headerTitleAlign: 'center',
+            headerTitleStyle: {
+            },
+            footterStyle: {
+              backgroundColor: '#369EFF',
+            },
+
+          }}
+        />
       </Stack.Navigator>
-   
+
     </NavigationContainer>
   );
 }
@@ -243,52 +261,52 @@ function CustomNavigationBar({ navigation, back, route }) {
             <Appbar.Action icon="menu" color="white" onPress={openMenu} />
           }>
           <Menu.Item disabled title="MENU">
-        <Text style={{ textAlign: 'center' , color: 'black', backgroundColor: 'black', fontWeight: 'bold' , padding: 10 }}>MENU</Text>
-        </Menu.Item>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="th" size={20} color="black" paddingLeft={10}/>
-        <Menu.Item onPress={() => navigation.navigate('All item')} title="All item"
-        style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="star" size={20} color="black" paddingLeft={10}/>
-        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Favorites"
-        style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="trash-o" size={20} color="black" paddingLeft={10}/>
-        <Menu.Item onPress={() => navigation.navigate('Delete')} title="Delete"
-        style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
+            <Text style={{ textAlign: 'center', color: 'black', backgroundColor: 'black', fontWeight: 'bold', padding: 10 }}>MENU</Text>
+          </Menu.Item>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="th" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => navigation.navigate('All item')} title="All item"
+              style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="star" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Favorites"
+              style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="trash-o" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => navigation.navigate('Delete')} title="Delete"
+              style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
 
-        <Menu.Item disabled title="Types">
-        <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}>Types</Text>
-        </Menu.Item>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="credit-card-alt" size={20} color="black" paddingLeft={10}/>
-        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Card"
-        style={{ paddingLeft: 3 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="arrow-circle-o-right" size={20} color="black" paddingLeft={10}/>
-        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Login"
-        style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="check-square-o" size={20} color="black" paddingLeft={10} />
-        <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Identity"
-        style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
-        
+          <Menu.Item disabled title="Types">
+            <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}>Types</Text>
+          </Menu.Item>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="credit-card-alt" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Card"
+              style={{ paddingLeft: 3 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="arrow-circle-o-right" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Login"
+              style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="check-square-o" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Identity"
+              style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
 
-        <Menu.Item disabled title="Folders">
-        <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}></Text>
-        </Menu.Item>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon name="folder" size={20} color="black" paddingLeft={10} />
-        <Menu.Item onPress={() => navigation.navigate('Folders')} title="floders"
-        style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-        /></View>
+
+          <Menu.Item disabled title="Folders">
+            <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}></Text>
+          </Menu.Item>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Icon name="folder" size={20} color="black" paddingLeft={10} />
+            <Menu.Item onPress={() => navigation.navigate('Folders')} title="floders"
+              style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
+            /></View>
         </Menu>
       ) : null}
     </Appbar.Header>
@@ -300,19 +318,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#F7F7F7',
-    
-  footerContainer: {
-    backgroundColor: '#369EFF', // เปลี่ยนสีตรงนี้เป็นสีที่คุณต้องการ
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  footerText: {
-    color: 'white', // เปลี่ยนสีตรงนี้ตามที่คุณต้องการ
-  },
+
+    footerContainer: {
+      backgroundColor: '#369EFF', // เปลี่ยนสีตรงนี้เป็นสีที่คุณต้องการ
+      padding: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    footerText: {
+      color: 'white', // เปลี่ยนสีตรงนี้ตามที่คุณต้องการ
+    },
 
   },
-  
+
 });
 
 const buttonStyle = StyleSheet.create({
@@ -324,8 +342,9 @@ const buttonStyle = StyleSheet.create({
     backgroundColor: 'lightgray',
     padding: 10,
     alignItems: 'center',
-  }});
-  
+  }
+});
+
 
 export default function Main() {
   return (

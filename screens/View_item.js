@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 
-function InfoItem({ text, marginTop, fontWeight, color }) {
+function InfoItem({ text, marginTop, fontWeight, color}) {
   return (
     <View>
       <Text style={[styles.text, { marginTop, fontWeight, color }]}>{text}</Text>
@@ -55,8 +55,8 @@ function View_item({ navigation, route }) {
       <InfoItem text="Updated : " marginTop={100} color="gray" marginLeft={10} fontSize={10}/>
       <InfoItem text="Password Updated : " color="gray" marginLeft={10} fontSize={10}/>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Icon name="edit" size={50} color="blue" style={{ marginTop: 50, marginLeft: 300 }}/>
-      <Icon name="trash" size={50} color="red" style={{ marginTop: 45,marginLeft: 20 }}/></View>
+      <Icon onPress={()=>navigation.navigate("Edit Item")} name="edit" size={50} color="#369EFF" style={{ marginTop: 50, marginLeft: 300 }}/>
+      <Icon name="trash" size={50} color="black" style={{ marginTop: 45,marginLeft: 20 }}/></View>
     </View>
   );
 }
