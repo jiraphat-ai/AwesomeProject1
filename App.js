@@ -1,8 +1,7 @@
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Settings } from 'react-native';
-import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -20,6 +19,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Gen_pass from './screens/gen_pass';
 import sett from './screens/setting';
 import Account_edit from './screens/account_edit';
+import Login from './screens/Login';
+import { FIREBASE_AUTH } from './FirebaseConfig';
+import { onAuthStateChanged } from 'firebase/auth';
+import { User } from 'firebase/auth';
 
 
 const Stack = createNativeStackNavigator();
@@ -69,14 +72,25 @@ function BottomTabs() {
 }
 //หัวฟ้า
 function App() {
+  const [user, setUser] = useState(null)
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log('user', user)
+      setUser(user)
+    })
+  })
   return (
 
     <NavigationContainer>
 
-      <Stack.Navigator initialRouteName="Home"
+      <Stack.Navigator initialRouteName={user ? "My Password" : "Login"}
         screenOptions={{
           header: CustomNavigationBar,
         }}>
+        <Stack.Screen name="Login" component={Login}
+         options={{
+          headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
+        }} />
         <Stack.Screen name="My Password" component={BottomTabs}
 
           options={{
@@ -95,7 +109,7 @@ function App() {
           }}
         />
 
-        <Stack.Screen name="Add password" component={Add_password}
+        <Stack.Screen name="Assss password" component={Add_password}
 
           options={{
             title: 'My Password',
@@ -236,6 +250,7 @@ function App() {
 
           }}
         />
+
       </Stack.Navigator>
 
     </NavigationContainer>
