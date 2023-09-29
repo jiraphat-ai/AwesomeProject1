@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { createStackNavigator } from '@react-navigation/stack';
 
-function FourTextInputBoxes() {
+function Account_edit() {
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [text3, setText3] = useState('');
@@ -92,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FourTextInputBoxes;
+export default Account_edit;

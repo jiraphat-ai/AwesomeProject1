@@ -19,6 +19,7 @@ import floders from './screens/floders';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Gen_pass from './screens/gen_pass';
 import sett from './screens/setting';
+import Account_edit from './screens/account_edit';
 
 
 const Stack = createNativeStackNavigator();
@@ -28,9 +29,39 @@ const Tab = createBottomTabNavigator();
 function BottomTabs() {
   return (
     <Tab.Navigator>
-      <Tab.Screen  name="Home" component={Home} options={{ headerShown: false }}  />
-      <Tab.Screen name="Genarate Password" component={Gen_pass}  options={{ headerShown: false }}  />
-      <Tab.Screen name="Settings" component={sett}  options={{ headerShown: false }}  />
+      <Tab.Screen
+    name="Home"
+    component={Home}
+    options={{
+      headerShown: false,
+      tabBarLabel: 'Home',
+      tabBarLabelStyle: { color: '#369EFF', fontSize: 16, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
+      tabBarIcon: ({ color, size }) => (
+        <Icon name="home" size={30} color={'#369EFF'} />
+      ),
+      }}/>
+            <Tab.Screen
+    name="Generate Password"
+    component={Gen_pass}
+    options={{
+      headerShown: false,
+      tabBarLabel: 'Gennerate Password',
+      tabBarLabelStyle: { color: '#369EFF', fontSize: 14, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
+      tabBarIcon: ({ color, size }) => (
+        <Icon name="lock" size={30} color={'#369EFF'} />
+      ),
+      }}/>
+            <Tab.Screen
+      name="Settings"
+      component={sett}
+      options={{
+      headerShown: false,
+      tabBarLabel: 'Settings',
+      tabBarLabelStyle: { color: '#369EFF', fontSize: 16, fontWeight: 'bold' }, // กำหนดสีและขนาดตัวอักษร
+      tabBarIcon: ({ color, size }) => (
+        <Icon name="cog" size={30} color={'#369EFF'} />
+      ),
+      }}/>
 
 
     </Tab.Navigator>
@@ -157,6 +188,23 @@ function App() {
         
         options={{
           title: 'Delete',
+          headerStyle: {
+            backgroundColor: '#369EFF',
+          },
+          headerTintColor: '#000',
+          headerTitleAlign: 'center', 
+          headerTitleStyle: {
+          },
+          footterStyle: {
+            backgroundColor: '#369EFF',
+          },
+
+        }}
+      />
+      <Stack.Screen name="Account_edit" component={Account_edit} 
+        
+        options={{
+          title: 'Account_edit',
           headerStyle: {
             backgroundColor: '#369EFF',
           },

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet } from 'react-native';
+import { View, Text, Switch, StyleSheet ,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-function SettingsPage() {
+function SettingsPage({navigation}) {
   const [isTwoFactorAuthEnabled, setTwoFactorAuthEnabled] = useState(false);
 
   return (
@@ -24,12 +23,12 @@ function SettingsPage() {
           />
         </View>
       </View>
-
+    <TouchableOpacity onPress={() => navigation.navigate("Account_edit")}>
       <View style={styles.accountRow}>
         <Text style={styles.accountText}>My Account</Text>
         <Icon name="pencil" size={20} color="black" style={styles.icon} />
       </View>
-
+      </TouchableOpacity>
 
        <View style={styles.accountRow}>
         <Text style={styles.accountText}>Delete</Text>
@@ -39,7 +38,7 @@ function SettingsPage() {
 
        <View style={styles.accountRow}>
         <Text style={styles.accountText}>Log Out</Text>
-        <Icon name="arrow-right-from-bracket" size={20} color="black" style={styles.icon} />
+        <Icon name="sign-out" size={20} color="black" style={styles.icon} />
       </View>
     </View>
   );
