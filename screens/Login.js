@@ -3,7 +3,7 @@ import { Text, StyleSheet, TextInput, Button, View } from 'react-native';
 import { firebase } from '@firebase/app';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-
+
 
 
 export default function Login({navigation}) {

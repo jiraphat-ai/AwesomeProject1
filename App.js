@@ -23,6 +23,7 @@ import Login from './screens/Login';
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
+import Register from './screens/Register';
 
 
 const Stack = createNativeStackNavigator();
@@ -88,6 +89,10 @@ function App() {
           header: CustomNavigationBar,
         }}>
         <Stack.Screen name="Login" component={Login}
+         options={{
+          headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
+        }} />
+           <Stack.Screen name="Register" component={Register}
          options={{
           headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
         }} />

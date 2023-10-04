@@ -2,10 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Text, StyleSheet, TextInput, Button, View,  Modal } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { RecaptchaVerifier, createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../FirebaseConfig';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
+import { signInWithPhoneNumber } from 'firebase/auth';
 
 
 
 export default function Register({ navigation }) {
+  const auth = FIREBASE_AUTH;
+  const db = FIRESTORE_DB;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -14,33 +20,79 @@ export default function Register({ navigation }) {
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
 
-
-
-  async function UserRegister() {
+  function registerWithEmailAndPassword() {
     if (password !== confirmPassword) {
       setError('รหัสผ่านและยืนยันรหัสผ่านไม่ตรงกัน');
       return;
     }
 
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log('บัญชีผู้ใช้ถูกสร้าง: ', user);
+        
+    
+        addUserToFirestore(user.uid);
+        // หลังจากนั้นให้ส่ง OTP ไปยังหมายเลขโทรศัพท์ของผู้ใช้
+        // sendOTPToPhoneNumber(user.phoneNumber);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error('เกิดข้อผิดพลาดในการสร้างบัญชีผู้ใช้: ', errorCode, errorMessage);
+      });
+  }
+
+  async function addUserToFirestore(id) {
     try {
-      const response = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
-      const uid = response.user.uid;
-      const data = {
-        id: uid,
-        email: email,
+      const docRef = await addDoc(collection(db, 'users'), {
+        email : email,
+        hint : hint,
         name: name,
-        hint: hint,
-        phoneNumber : phoneNumber
-      };
-      const usersRef = firebase.firestore().collection('users');
-      await usersRef.doc(uid).set(data);
-    } catch (error) {
-      setError(error.message);
+        id : id
+      });
+      console.log('Document written with ID: ', docRef.id);
+    } catch (e) {
+      console.error('Error adding document: ', e);
     }
   }
 
+  // function sendOTPToPhoneNumber(phoneNumber) {
+  //   const appVerifier = new RecaptchaVerifier('recaptcha-container'); // ถ้าคุณใช้ reCAPTCHA
+  //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+  //     .then((confirmationResult) => {
+  //       // ในกรณีนี้ OTP ได้ถูกส่งไปยังหมายเลขโทรศัพท์
+  //       const verificationCode = window.prompt('กรุณากรอกรหัส OTP ที่คุณได้รับผ่าน SMS');
+  //       return confirmationResult.confirm(verificationCode);
+  //     })
+  //     .then((result) => {
+  //       // ผู้ใช้ได้ยืนยัน OTP และเสร็จสิ้นกระบวนการลงทะเบียน
+  //       console.log('การลงทะเบียนสำเร็จ: ', result.user);
+  //     })
+  //     .catch((error) => {
+  //       // เกิดข้อผิดพลาดในการส่ง OTP หรือยืนยัน OTP
+  //       console.error('เกิดข้อผิดพลาดในการยืนยัน OTP: ', error);
+  //     });
+  // }
+  //   try {
+  //     const response = await firebase
+  //       .auth()
+  //       .createUserWithEmailAndPassword(email, password);
+  //     const uid = response.user.uid;
+  //     const data = {
+  //       id: uid,
+  //       email: email,
+  //       name: name,
+  //       hint: hint,
+  //       phoneNumber : phoneNumber
+  //     };
+  //     const usersRef = firebase.firestore().collection('users');
+  //     await usersRef.doc(uid).set(data);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  // }
+  
 
   return (
     <View style={styles.container}>
@@ -94,7 +146,7 @@ export default function Register({ navigation }) {
         <Button
           color="#000001"
           title="Register"
-          onPress={() => UserRegister()}
+          onPress={() => registerWithEmailAndPassword()}
         />
         
       </View>
