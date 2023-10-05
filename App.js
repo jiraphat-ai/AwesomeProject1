@@ -103,6 +103,7 @@ function App() {
             headerStyle: {
               backgroundColor: '#369EFF',
             },
+            headerLeft: null,
             headerTintColor: '#000',
             headerTitleAlign: 'center', // จัดตำแหน่งให้ข้อความอยู่ตรงกลา
             headerTitleStyle: {
@@ -157,6 +158,7 @@ function App() {
             headerStyle: {
               backgroundColor: '#369EFF',
             },
+          
             headerTintColor: '#000',
             headerTitleAlign: 'center',
             headerTitleStyle: {
