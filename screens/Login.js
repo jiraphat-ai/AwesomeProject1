@@ -3,7 +3,7 @@ import { Text, StyleSheet, TextInput, Button, View } from 'react-native';
 import { firebase } from '@firebase/app';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-
+import { StackActions, NavigationActions } from '@react-navigation/native';
 
 
 export default function Login({navigation}) {
@@ -11,15 +11,25 @@ export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
-
+  // const goToMyPassword = () => {
+  //   const resetAction = StackActions.reset({
+  //     index: 0,
+  //     actions: [NavigationActions.navigate({ routeName: 'My Password' })],
+  //   });
+  
+  //   // dispatch การรีเซ็ต stack navigator
+  //   navigation.dispatch(resetAction);
+  // };
+  
 
   const UserLogin = async () => {
     try{
       const respones = await signInWithEmailAndPassword(auth,email,password)
-      navigation.navigate('My Password');
+      navigation.replace('My Password');
       global.uEmail = email;
     }
     catch(error){
+      console.log(error)
       alert(error);
     }finally{
       
