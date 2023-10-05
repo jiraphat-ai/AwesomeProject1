@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Add_password from './add_password';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home({ navigation }) {
   const [headerText, setHeaderText] = useState('');
@@ -17,6 +18,18 @@ export default function Home({ navigation }) {
       setHeaderText('');
     }
   };
+  
+
+onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    if (user) {
+        // ผู้ใช้ล็อกอินอยู่
+        console.log("User is logged in:", user);
+        
+    } else {
+        // ผู้ใช้ไม่ได้ล็อกอิน
+        console.log("User is not logged in");
+    }
+});
 
   return (
     <View style={styles.container}>
@@ -44,7 +57,7 @@ export default function Home({ navigation }) {
       <Button style={{ backgroundColor: '#0483F8', justifyContent: 'center', marginTop: 100, marginHorizontal: 160 }} icon="plus" mode="contained" onPress={() => navigation.navigate('Add password')} title="add item">
         add item
       </Button>
-      <Text>{currentUser.email}</Text>
+      <Text>{currentUser.uid}</Text> 
     </View>
 
   );
