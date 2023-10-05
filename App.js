@@ -115,7 +115,7 @@ function App() {
           }}
         />
 
-        <Stack.Screen name="Assss password" component={Add_password}
+        <Stack.Screen name="Add password" component={Add_password}
 
           options={{
             title: 'My Password',

@@ -45,17 +45,18 @@ export default function Register({ navigation }) {
 
   async function addUserToFirestore(id) {
     try {
-      const docRef = await addDoc(collection(db, 'users'), {
-        email : email,
-        hint : hint,
-        name: name,
-        id : id
-      });
-      console.log('Document written with ID: ', docRef.id);
+        const docRef = doc(db, 'users', id);
+        await setDoc(docRef, {
+            email: email,
+            hint: hint,
+            name: name,
+            id: id
+        });
+        console.log('Document written with ID: ', id);
     } catch (e) {
-      console.error('Error adding document: ', e);
+        console.error('Error adding document: ', e);
     }
-  }
+}
 
   // function sendOTPToPhoneNumber(phoneNumber) {
   //   const appVerifier = new RecaptchaVerifier('recaptcha-container'); // ถ้าคุณใช้ reCAPTCHA
