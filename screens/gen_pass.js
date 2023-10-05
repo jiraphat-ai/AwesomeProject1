@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
-import Clipboard from '@react-native-community/clipboard'; // เพิ่มการนำเข้า Clipboard
 
 const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNumbers) => {
+  const maxLength = 32;
+  const minLength = 8;
+
+  if (length < minLength || length > maxLength) {
+    alert(`ความยาวรหัสผ่านต้องอยู่ระหว่าง 8-32 ตัวอักษร`);
+    return null;
+  }
+
   let charset = '';
   if (useSymbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
   if (useUppercase) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -18,8 +25,6 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
   return password;
 };
 
-
-
 const PasswordGenerator = () => {
   const [password, setPassword] = useState('');
   const [passwordLength, setPasswordLength] = useState(8);
@@ -27,11 +32,7 @@ const PasswordGenerator = () => {
   const [useUppercase, setUseUppercase] = useState(true);
   const [useLowercase, setUseLowercase] = useState(true);
   const [useNumbers, setUseNumbers] = useState(true);
-  
-  const copyToClipboard = () => {
-    Clipboard.setString(password); // ใช้ Clipboard เพื่อคัดลอกข้อความไปยังคลิปบอร์ด
-    alert('Password copied to clipboard');
-  };
+
   const generateNewPassword = () => {
     const newPassword = generatePassword(
       passwordLength,
@@ -83,8 +84,7 @@ const PasswordGenerator = () => {
         <Text>Generate Password</Text>
       </TouchableOpacity>
       <Text style={styles.passwordLabel}>Generated Password:</Text>
-      <Text style={styles.password}>{password}</Text>
-      
+      <TextInput style={styles.password}>{password}</TextInput>
     </View>
   );
 };
