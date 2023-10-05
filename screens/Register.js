@@ -6,7 +6,7 @@ import { RecaptchaVerifier, createUserWithEmailAndPassword,signInWithEmailAndPas
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../FirebaseConfig';
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import { signInWithPhoneNumber } from 'firebase/auth';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function Register({ navigation }) {
@@ -37,6 +37,7 @@ export default function Register({ navigation }) {
             const respones = await signInWithEmailAndPassword(auth,email,password)
             navigation.replace('My Password');
             global.uEmail = email;
+            await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
           }
           catch(error){
             console.log(error)

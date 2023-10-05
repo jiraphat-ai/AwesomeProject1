@@ -1,6 +1,9 @@
+import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
 import { View, Text, Switch, StyleSheet ,TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
 function SettingsPage({navigation}) {
   const [isTwoFactorAuthEnabled, setTwoFactorAuthEnabled] = useState(false);
 
@@ -35,11 +38,15 @@ function SettingsPage({navigation}) {
         <Icon name="trash" size={20} color="black" style={styles.icon} />
       </View>
 
-
+      <TouchableOpacity onPress={async () => await signOut(FIREBASE_AUTH).then(()=>{
+        AsyncStorage.clear()
+        navigation.replace('Login')
+      })}>
        <View style={styles.accountRow}>
         <Text style={styles.accountText}>Log Out</Text>
         <Icon name="sign-out" size={20} color="black" style={styles.icon} />
       </View>
+      </TouchableOpacity>
     </View>
   );
 }

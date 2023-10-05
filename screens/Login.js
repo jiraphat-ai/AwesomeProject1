@@ -4,7 +4,7 @@ import { firebase } from '@firebase/app';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { StackActions, NavigationActions } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login({navigation}) {
   const auth = FIREBASE_AUTH;
@@ -27,6 +27,7 @@ export default function Login({navigation}) {
       const respones = await signInWithEmailAndPassword(auth,email,password)
       navigation.replace('My Password');
       global.uEmail = email;
+      await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
     }
     catch(error){
       console.log(error)
@@ -46,17 +47,37 @@ export default function Login({navigation}) {
   //   });
 }
 
-
-  useEffect(() => {
-    async function CheckLogin(){
-      firebase.auth().onAuthStateChanged((user) => {
-        if(user){
-          navigation.navigate('Home');
-        }
-      });
+async function checkLoginStatus() {
+  try {
+    // ตรวจสอบข้อมูลการล็อกอินใน AsyncStorage
+    const userd = await AsyncStorage.getItem('user');
+    if (userd) {
+      // แปลงข้อมูล JSON กลับเป็น Object
+      const userData = JSON.parse(userd);
+      console.log(userData)
+      try{
+        const respones = await signInWithEmailAndPassword(auth,userData.email,userData.password)
+        navigation.replace('My Password');
+        global.uEmail = userData.email;
+        return true;
+      } 
+      catch(error){
+        console.log(error)
+        alert(error); 
+        return false
+      }
     }
-    CheckLogin();
-  }, [navigation]);
+  } catch (error) {
+    console.error('Error checking login status:', error);
+  }
+
+};
+
+useEffect(()=> {
+
+  checkLoginStatus();
+},[])
+
 
 
   return (

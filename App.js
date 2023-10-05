@@ -24,7 +24,8 @@ import { FIREBASE_AUTH } from './FirebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { User } from 'firebase/auth';
 import Register from './screens/Register';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,13 +74,10 @@ function BottomTabs() {
 }
 //หัวฟ้า
 function App() {
+  const auth = FIREBASE_AUTH;
   const [user, setUser] = useState(null)
-  useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log('user', user)
-      setUser(user)
-    })
-  })
+  
+  
   return (
 
     <NavigationContainer>
@@ -89,13 +87,13 @@ function App() {
           header: CustomNavigationBar,
         }}>
         <Stack.Screen name="Login" component={Login}
-         options={{
-          headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
-        }} />
-           <Stack.Screen name="Register" component={Register}
-         options={{
-          headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
-        }} />
+          options={{
+            headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
+          }} />
+        <Stack.Screen name="Register" component={Register}
+          options={{
+            headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
+          }} />
         <Stack.Screen name="My Password" component={BottomTabs}
 
           options={{
@@ -158,7 +156,7 @@ function App() {
             headerStyle: {
               backgroundColor: '#369EFF',
             },
-          
+
             headerTintColor: '#000',
             headerTitleAlign: 'center',
             headerTitleStyle: {

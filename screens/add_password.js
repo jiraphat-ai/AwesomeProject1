@@ -5,41 +5,18 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'rea
 import { useState } from 'react';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { FIREBASE_AUTH, FIRESTORE_DB } from '../FirebaseConfig';
+import { doc, setDoc, collection, addDoc, Timestamp } from 'firebase/firestore';
 import { CheckBox } from 'react-native-elements';
-
-
+import { NativeModules, Platform } from 'react-native'
+import AesCrypto from 'react-native-aes-crypto';
+import CryptoJS from 'crypto-js';
+import { Decrypt, Encrypt } from '../function/aes';
+import { addToFirestore } from '../function/Add_data';
+import {FetchDataPassword} from '../function/get_data'
 const Stack = createNativeStackNavigator();
 
-function BBScreen() {
-  const handleButton1Press = () => {
-    // ทำสิ่งที่คุณต้องการเมื่อปุ่ม 1 ถูกกด
-    console.log('ปุ่ม 1 ถูกกด');
-  };
-//88
 
-  const handleButton2Press = () => {
-    // ทำสิ่งที่คุณต้องการเมื่อปุ่ม 2 ถูกกด
-    console.log('ปุ่ม 2 ถูกกด');
-  };
-
-  return (
-    <View style={{ flexDirection: 'row', justifyContent: 'flex-start', padding: 20 }}>
-      <TouchableOpacity
-        style={{ backgroundColor: '#0483F8', padding: 10, borderRadius: 5, marginRight: 20 }}
-        onPress={handleButton1Press}
-      >
-        <Text style={{ color: 'black' }}>SAVE</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={{ backgroundColor: '#FEF9F9', padding: 10, borderRadius: 5 }}
-        onPress={handleButton2Press}
-      >
-        <Text style={{ color: 'black' }}>CANCEL</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 function Add_password() {
   const [emailValue, setEmailValue] = useState('');
@@ -48,16 +25,32 @@ function Add_password() {
   const [urlValue, seturlValue] = useState('');
   const [selectedItemValue, setSelectedItemValue] = useState(''); // ค่าที่เลือกจากรายการแบบดรอปดาวน์
   const [isChecked, setIsChecked] = useState(false);
+  const auth = FIREBASE_AUTH;
   const toggleCheckBox = () => {
     setIsChecked(!isChecked);
   };
 
-  const handleAddPassword = () => {
-    console.log('ข้อความ:', textValue);
-    console.log('รายการที่เลือก:', selectedItemValue);
+  const SaveBTN = async () => {
+    console.log(Encrypt(pwValue))
+    // ทำสิ่งที่คุณต้องการเมื่อปุ่ม 1 ถูกกด
+   await addToFirestore("password_entry" , auth.currentUser.uid , {
+      URL : urlValue,
+      date_created : Timestamp.now(),
+      date_updated : Timestamp.now(),
+      password : Encrypt(pwValue),
+      username : Encrypt(userValue),
+      tag : emailValue
+    })
 
-    // ส่วนการบันทึกรายการรหัสผ่านลงในฐานข้อมูลหรือสตอเรจ
   };
+//88
+
+  const handleButton2Press = () => {
+    // ทำสิ่งที่คุณต้องการเมื่อปุ่ม 2 ถูกกด
+    FetchDataPassword()
+  };
+
+
 
   return (
     <View style={{ padding: 15, marginTop: 10, }}>
@@ -140,7 +133,21 @@ function Add_password() {
           onPress={toggleCheckBox}
           containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}  
         /><Text style={{justifyContent:'center'}}>New URL</Text></View>
-      <BBScreen />
+      <View style={{ flexDirection: 'row', justifyContent: 'flex-start', padding: 20 }}>
+      <TouchableOpacity
+        style={{ backgroundColor: '#0483F8', padding: 10, borderRadius: 5, marginRight: 20 }}
+        onPress={SaveBTN}
+      >
+        <Text style={{ color: 'black' }}>SAVE</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={{ backgroundColor: '#FEF9F9', padding: 10, borderRadius: 5 }}
+        onPress={handleButton2Press}
+      >
+        <Text style={{ color: 'black' }}>CANCEL</Text>
+      </TouchableOpacity>
+    </View>
 
     </View>
   );
