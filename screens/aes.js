@@ -11,7 +11,7 @@ const encryptData = (text, key) =>{
         }))
     })
 }
-
+// comment
 const decryptData = (encryptedData, key) =>Aes.decrypt(encryptedData.cipher, key, encryptedData.iv, 'aes-256-cbc')
 
 try {
