@@ -25,8 +25,7 @@ export default function Login({navigation}) {
   const UserLogin = async () => {
     try{
       const respones = await signInWithEmailAndPassword(auth,email,password)
-      await sendEmailVerification(respones);
-      await signOut(auth);
+      await sendEmailVerification(respones.user);
       alert("Email sent");
       navigation.replace('My Password');
       global.uEmail = email;
