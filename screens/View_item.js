@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import { fetchDocumentOnce } from '../function/get_data';
+import { Decrypt } from '../function/aes';
 
 
 function InfoItem({ text, marginTop, fontWeight, color}) {
@@ -25,29 +26,46 @@ const styles = StyleSheet.create({
 });
 
 function View_item({ navigation, route }) {
+const [data, setData] = useState({}); // สถานะสำหรับชื่อผู้ใช้
+const [username ,setUser] = useState("************")
+const [password ,setPass] = useState("************")
+const [eye ,setEye] = useState(true)
+
+  async function GetInfo(id){
+    
+    const dataFetch = await fetchDocumentOnce(id);
+    setData(dataFetch)
+
+  }
+  useEffect(() => {
+    GetInfo(route.params?.id)
+  }, [])
   return (
     <View>
       <InfoItem text="Item information" marginTop={0} fontWeight="bold" color="black"/>
       <InfoItem text="Name" marginTop={30}  />
-      <InfoItem text="email" marginTop={10} color="gray" marginLeft={10}/>
+      <InfoItem text={data.tag} marginTop={10} color="gray" marginLeft={10}/>
       <View style={styles.line}></View>
       <InfoItem text="Username" marginTop={20} />      
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <InfoItem text="" marginTop={10} color="gray"/>
-      <InfoItem text="xxx@gmail.com" marginTop={20} fontWeight="bold" color="gray" />
+      <InfoItem text={username} marginTop={20} fontWeight="bold" color="gray" />
       <Icon name="copy" size={20} color="black" style={{ marginLeft: 20 }} /></View>
       <View style={styles.line}></View>
       <InfoItem text="Password" marginTop={20} />      
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <InfoItem text="" marginTop={10} color="gray"/>
-      <InfoItem text="xxxxxxxxxx" marginTop={15} fontWeight="bold" color="gray" />
-      <Icon name="eye" size={20} color="black" style={{ marginLeft: 20 }} />
+      <InfoItem text ={password} marginTop={15} fontWeight="bold" color="gray" />
+      <Icon onPress={() => {
+         setUser(Decrypt(data.username));
+         setPass(Decrypt(data.password));
+      }} name="eye" size={20} color="black" style={{ marginLeft: 20 }} />
       <Icon name="copy" size={20} color="black" style={{ marginLeft: 10 }} /></View>
       <View style={styles.line}></View>
       <InfoItem text="URL" marginTop={20} />      
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <InfoItem text="" marginTop={10} color="gray"/>
-      <InfoItem text="email" marginTop={20} fontWeight="bold" color="gray" />
+      <InfoItem text={data.URL} marginTop={20} fontWeight="bold" color="gray" />
       <Icon name="copy" size={20} color="black" style={{ marginLeft: 20 }} /></View>
       <View style={styles.line}></View>
 

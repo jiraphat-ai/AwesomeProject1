@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TextInput, Text, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-paper';
@@ -18,7 +18,10 @@ function EditItem({ navigation, route }) {
   const [username, setUsername] = useState(''); // สถานะสำหรับชื่อผู้ใช้
   const [password, setPassword] = useState(''); // สถานะสำหรับรหัสผ่าน
   const [url, setUrl] = useState(''); // สถานะสำหรับ URL
+  useEffect(() => {
+    console.log("sdsd",route.params?.data)
 
+  }, [])
   return (
     <View>
       <InfoItem text="Item information" marginTop={0} fontWeight="bold" color="black" />
@@ -53,7 +56,7 @@ function EditItem({ navigation, route }) {
           onChangeText={setPassword}
           placeholder="password"
         />
-         <Icon name="eye" size={20} color="black" style={{ marginLeft: 20 }} />
+        <Icon name="eye" size={20} color="black" style={{ marginLeft: 20 }} />
         <Icon name="copy" size={20} color="black" style={{ marginLeft: 10 }} />
       </View>
       <InfoItem text="URL" marginTop={20} />
