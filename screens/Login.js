@@ -2,7 +2,7 @@
 import { Text, StyleSheet, TextInput, Button, View } from 'react-native';
 import { firebase } from '@firebase/app';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {  getAuth, signInWithEmailAndPassword, sendEmailVerification, signOut  } from 'firebase/auth';
 import { StackActions, NavigationActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -25,6 +25,9 @@ export default function Login({navigation}) {
   const UserLogin = async () => {
     try{
       const respones = await signInWithEmailAndPassword(auth,email,password)
+      await sendEmailVerification(respones);
+      await signOut(auth);
+      alert("Email sent");
       navigation.replace('My Password');
       global.uEmail = email;
       await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
