@@ -18,6 +18,9 @@ function Decrypt(encryptedText) {
     const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
     console.log('Decrypted Text:', decryptedText);
     return decryptedText
+    
 }
+
+
 
 export {Encrypt ,Decrypt}

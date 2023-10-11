@@ -46,6 +46,8 @@ export default function Register({ navigation }) {
         });
         // หลังจากนั้นให้ส่ง OTP ไปยังหมายเลขโทรศัพท์ของผู้ใช้
         // sendOTPToPhoneNumber(user.phoneNumber);
+      }).then(() => {
+        
       })
       .catch((error) => {
         const errorCode = error.code;

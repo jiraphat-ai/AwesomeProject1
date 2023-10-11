@@ -25,6 +25,8 @@ function Add_password() {
   const [urlValue, seturlValue] = useState('');
   const [selectedItemValue, setSelectedItemValue] = useState(''); // ค่าที่เลือกจากรายการแบบดรอปดาวน์
   const [isChecked, setIsChecked] = useState(false);
+  const [isShow, setShow] = useState(true);
+
   const auth = FIREBASE_AUTH;
   const toggleCheckBox = () => {
     setIsChecked(!isChecked);
@@ -50,6 +52,15 @@ function Add_password() {
     FetchDataPassword()
   };
 
+  function GennaratePasswordSecurity() {
+    var length = 12,
+      charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()",
+      retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+      retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    setpwValue(retVal)
+  }
 
 
   return (
@@ -111,10 +122,15 @@ function Add_password() {
           style={{ ...styles.textInput, borderColor: 'black', borderWidth: 1, backgroundColor: '#FEF9F9' }}
           placeholder=" XXXXXX                           "
           value={pwValue}
+          secureTextEntry = {isShow}
           onChangeText={(text) => setpwValue(text)}/>
-         <Icon style={{ marginLeft: 15 }} name="eye" size={20} color="black"/>
+         <Icon style={{ marginLeft: 15 }} name="eye" onPress={()=>{
+            setShow(!isShow)
+         }} size={20} color="black"/>
           <Icon style={{ marginLeft: 15 }} name="copy" size={20} color="black" />
-        <Icon style={{ marginLeft: 15 }} name="exchange" size={15} color="black" />
+        <Icon style={{ marginLeft: 15 }} onPress={()=>{
+          GennaratePasswordSecurity()
+        }} name="exchange" size={15} color="black" />
       </View>
       
 
@@ -127,6 +143,7 @@ function Add_password() {
           onChangeText={(text) => seturlValue(text)}
         /><Icon style={{ marginLeft: 15 }} name="copy" size={20} color="black" />
         </View>
+        
         <View style={{flexDirection: 'row',marginTop: 10, alignItems: 'center'}}>
       <CheckBox
           checked={isChecked}

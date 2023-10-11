@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 
@@ -22,7 +23,28 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
     password += charset[randomIndex];
   }
 
-  return password;
+  // Check password strength
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSymbol = /[-!@#$%^&*()_+=[\]{}|;:',.<>?]/.test(password);
+  const isStrong =
+    password.length >= minLength &&
+    hasUppercase &&
+    hasLowercase &&
+    hasNumber &&
+    hasSymbol;
+
+  let strength = '';
+  if (isStrong) {
+    strength = 'Strong';
+  } else if (password.length >= minLength && (hasUppercase || hasLowercase || hasNumber || hasSymbol)) {
+    strength = 'Moderate';
+  } else {
+    strength = 'Weak';
+  }
+
+  return { password, strength };
 };
 
 const PasswordGenerator = () => {
@@ -32,16 +54,18 @@ const PasswordGenerator = () => {
   const [useUppercase, setUseUppercase] = useState(true);
   const [useLowercase, setUseLowercase] = useState(true);
   const [useNumbers, setUseNumbers] = useState(true);
+  const [passwordStrength, setPasswordStrength] = useState('');
 
   const generateNewPassword = () => {
-    const newPassword = generatePassword(
+    const { password, strength } = generatePassword(
       passwordLength,
       useSymbols,
       useUppercase,
       useLowercase,
       useNumbers
     );
-    setPassword(newPassword);
+    setPassword(password);
+    setPasswordStrength(strength);
   };
 
   return (
@@ -85,6 +109,8 @@ const PasswordGenerator = () => {
       </TouchableOpacity>
       <Text style={styles.passwordLabel}>Generated Password:</Text>
       <TextInput style={styles.password}>{password}</TextInput>
+      <Text style={styles.passwordStrengthLabel}>Password Strength:</Text>
+      <Text style={styles.passwordStrength}>{passwordStrength}</Text>
     </View>
   );
 };
@@ -135,6 +161,17 @@ const styles = StyleSheet.create({
   password: {
     fontSize: 20,
   },
+  passwordStrengthLabel: {
+    marginTop: 20,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  passwordStrength: {
+    fontSize: 20,
+    color: 'blue',
+  },
 });
 
 export default PasswordGenerator;
+
+

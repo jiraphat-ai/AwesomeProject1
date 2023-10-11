@@ -26,6 +26,8 @@ import { User } from 'firebase/auth';
 import Register from './screens/Register';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import SetPinAndConfirmScreen from './screens/set_pin_and_';
+import InsertPin from './screens/insertpin';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,8 +78,8 @@ function BottomTabs() {
 function App() {
   const auth = FIREBASE_AUTH;
   const [user, setUser] = useState(null)
-  
-  
+
+
   return (
 
     <NavigationContainer>
@@ -87,6 +89,15 @@ function App() {
           header: CustomNavigationBar,
         }}>
         <Stack.Screen name="Login" component={Login}
+          options={{
+            headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
+          }} />
+
+        <Stack.Screen name="Set Pin" component={SetPinAndConfirmScreen}
+          options={{
+            headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
+          }} />
+            <Stack.Screen name="Insert Pin" component={InsertPin}
           options={{
             headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
           }} />
