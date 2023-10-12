@@ -59,7 +59,6 @@ export default function Register({ navigation }) {
 
   async function addUserToFirestore(id) {
     try {
-      // เข้ารหัส uid ด้วย SHA-256
       const idHash = SHA256(id).toString();
   
       const userDocRef = doc(db, 'users', idHash); 
