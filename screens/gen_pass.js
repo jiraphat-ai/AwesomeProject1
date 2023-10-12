@@ -4,11 +4,11 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 
 const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNumbers) => {
   const maxLength = 32;
-  const minLength = 12;
+  const minLength = 8;
 
   if (length < minLength || length > maxLength) {
     alert(`ความยาวรหัสผ่านต้องอยู่ระหว่าง 8-32 ตัวอักษร`);
-    return null;
+   
   }
 
   let charset = '';
@@ -29,7 +29,7 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
   const hasNumber = /\d/.test(password);
   const hasSymbol = /[-!@#$%^&*()_+=[\]{}|;:',.<>?]/.test(password);
   const isStrong =
-    password.length >= 14 &&
+    password.length >= minLength &&
     hasUppercase &&
     hasLowercase &&
     hasNumber &&
@@ -38,7 +38,7 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
   let strength = '';
   if (isStrong) {
     strength = 'Strong';
-  } else if (password.length > minLength && (hasUppercase || hasLowercase || hasNumber || hasSymbol)) {
+  } else if (password.length >= minLength && (hasUppercase || hasLowercase || hasNumber || hasSymbol)) {
     strength = 'Mediocre';
   } else {
     strength = 'Weak';
@@ -49,7 +49,7 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
 
 const PasswordGenerator = () => {
   const [password, setPassword] = useState('');
-  const [passwordLength, setPasswordLength] = useState(8);
+  const [passwordLength, setPasswordLength] = useState(12);
   const [useSymbols, setUseSymbols] = useState(true);
   const [useUppercase, setUseUppercase] = useState(true);
   const [useLowercase, setUseLowercase] = useState(true);
