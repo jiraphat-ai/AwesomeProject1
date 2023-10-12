@@ -98,8 +98,26 @@ export default function Login({ navigation }) {
         try {
           const respones = await signInWithEmailAndPassword(auth, userData.email, userData.password)
 
-          navigation.replace('My Password');
-          global.uEmail = userData.email;
+          if (respones)
+          if (await CheckUserIsHavePininFirestore()) {
+            navigation.replace('Insert Pin', {
+              email: email,
+              password: password
+            });;
+                // แก้ error The action 'REPLACE' with payload {"name":{"name":"Insert Pin","params":{"email":"ball2@gmail.com","password":"123456"}}} was not handled by any navigator.Do you have a screen named '[object Object]'?
+            navigation.replace('Insert Pin', {
+              email: email,
+              password: password
+            });
+            // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
+          } else {
+            navigation.replace('Set Pin' ,{
+                email: email,
+                password: password
+            });
+            // global.uEmail = email;
+            // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
+          }
           return true;
         }
         catch (error) {

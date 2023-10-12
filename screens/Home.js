@@ -67,7 +67,7 @@ export default function Home({ navigation }) {
           }}>
             <Card.Title
             title={item.URL}
-            subtitle={item.id}
+            subtitle={item.tag}
             left={(props) => <Avatar.Icon {...props} icon={item.icon ? item.icon : 'folder'} />}
             right={(props) => <IconButton {...props} icon="dots-vertical"  />}
           /></TouchableOpacity>

@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 
 const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNumbers) => {
   const maxLength = 32;
-  const minLength = 8;
+  const minLength = 12;
 
   if (length < minLength || length > maxLength) {
     alert(`ความยาวรหัสผ่านต้องอยู่ระหว่าง 8-32 ตัวอักษร`);
@@ -29,7 +29,7 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
   const hasNumber = /\d/.test(password);
   const hasSymbol = /[-!@#$%^&*()_+=[\]{}|;:',.<>?]/.test(password);
   const isStrong =
-    password.length >= minLength &&
+    password.length >= 14 &&
     hasUppercase &&
     hasLowercase &&
     hasNumber &&
@@ -38,8 +38,8 @@ const generatePassword = (length, useSymbols, useUppercase, useLowercase, useNum
   let strength = '';
   if (isStrong) {
     strength = 'Strong';
-  } else if (password.length >= minLength && (hasUppercase || hasLowercase || hasNumber || hasSymbol)) {
-    strength = 'Moderate';
+  } else if (password.length > minLength && (hasUppercase || hasLowercase || hasNumber || hasSymbol)) {
+    strength = 'Mediocre';
   } else {
     strength = 'Weak';
   }
