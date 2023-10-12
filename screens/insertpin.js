@@ -25,7 +25,7 @@ export default function InsertPin({ navigation, route}) {
                         navigation.replace('My Password');
                     });
                 } else {
-                    console.log('PIN is incorrect!');
+                    alert('PIN is incorrect!');
                 }
             } else {
                 console.log('No such document!');
@@ -46,7 +46,7 @@ export default function InsertPin({ navigation, route}) {
                 style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 5, padding: 10, marginBottom: 20, width: '80%' }}
             />
             <Button mode="contained" onPress={checkPin} style={{ width: '80%' }}>
-                Check
+                Enter
             </Button>
         </View>
     );
