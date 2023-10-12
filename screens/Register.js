@@ -7,6 +7,7 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from '../FirebaseConfig';
 import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 import { signInWithPhoneNumber } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SHA256 } from 'crypto-js';
 
 
 export default function Register({ navigation }) {
@@ -58,19 +59,29 @@ export default function Register({ navigation }) {
 
   async function addUserToFirestore(id) {
     try {
-        const docRef = doc(db, 'users', id);
-        await setDoc(docRef, {
-            email: email,
-            hint: hint,
-            name: name,
-            id: id
-        });
-        console.log('Document written with ID: ', id)
+      const idHash = SHA256(id).toString();
+  
+      const userDocRef = doc(db, 'users', idHash); 
+      const hashCollectionRef = collection(userDocRef, 'hash'); // สร้าง collection "hash" ภายในเอกสารของผู้ใช้
+      
+      await setDoc(userDocRef, {
+        email: email,
+        hint: hint,
+        name: name,
+        id: id
+      });
+  
+      // สร้างเอกสารใน collection "hash" โดยใช้ idHash เป็นชื่อเอกสาร
+      await setDoc(doc(hashCollectionRef, idHash), {
+        idHash: idHash
+      });
+  
+      console.log('Document written with ID: ', idHash);
     } catch (e) {
-        console.error('Error adding document: ', e);
+      console.error('Error adding document: ', e);
     }
-}
-
+  }
+  
   // function sendOTPToPhoneNumber(phoneNumber) {
   //   const appVerifier = new RecaptchaVerifier('recaptcha-container'); // ถ้าคุณใช้ reCAPTCHA
   //   signInWithPhoneNumber(auth, phoneNumber, appVerifier)
