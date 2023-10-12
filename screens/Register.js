@@ -61,22 +61,15 @@ export default function Register({ navigation }) {
     try {
       const idHash = SHA256(id).toString();
   
-      const userDocRef = doc(db, 'users', idHash); 
-      const hashCollectionRef = collection(userDocRef, 'hash'); // สร้าง collection "hash" ภายในเอกสารของผู้ใช้
-      
-      await setDoc(userDocRef, {
+      const docRef = doc(db, 'users', id); 
+      await setDoc(docRef, {
         email: email,
         hint: hint,
         name: name,
-        id: id
+        id: id,
+        key: idHash
       });
-  
-      // สร้างเอกสารใน collection "hash" โดยใช้ idHash เป็นชื่อเอกสาร
-      await setDoc(doc(hashCollectionRef, idHash), {
-        idHash: idHash
-      });
-  
-      console.log('Document written with ID: ', idHash);
+      console.log('Document written with ID: ',id); 
     } catch (e) {
       console.error('Error adding document: ', e);
     }
