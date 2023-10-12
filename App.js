@@ -300,43 +300,9 @@ function CustomNavigationBar({ navigation, back, route }) {
               style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
             /></View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Icon name="star" size={20} color="black" paddingLeft={10} />
-            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Favorites"
-              style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-            /></View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Icon name="trash-o" size={20} color="black" paddingLeft={10} />
             <Menu.Item onPress={() => navigation.navigate('Delete')} title="Delete"
               style={{ paddingLeft: 10 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-            /></View>
-
-          <Menu.Item disabled title="Types">
-            <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}>Types</Text>
-          </Menu.Item>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Icon name="credit-card-alt" size={20} color="black" paddingLeft={10} />
-            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Card"
-              style={{ paddingLeft: 3 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-            /></View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Icon name="arrow-circle-o-right" size={20} color="black" paddingLeft={10} />
-            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Login"
-              style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-            /></View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Icon name="check-square-o" size={20} color="black" paddingLeft={10} />
-            <Menu.Item onPress={() => console.log('Option 5 was pressed')} title="Identity"
-              style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
-            /></View>
-
-
-          <Menu.Item disabled title="Folders">
-            <Text style={{ color: 'black', backgroundColor: 'black', padding: 10 }}></Text>
-          </Menu.Item>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Icon name="folder" size={20} color="black" paddingLeft={10} />
-            <Menu.Item onPress={() => navigation.navigate('Folders')} title="floders"
-              style={{ paddingLeft: 11 }} // เพิ่มช่องว่างด้านซ้ายของ Text
             /></View>
         </Menu>
       ) : null}
