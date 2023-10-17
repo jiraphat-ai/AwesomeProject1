@@ -36,7 +36,10 @@ export default function Register({ navigation }) {
         addUserToFirestore(user.uid).then(async (i) => {
           try{
             const respones = await signInWithEmailAndPassword(auth,email,password)
-            navigation.replace('My Password');
+            navigation.replace('Set Pin', {
+              email: email,
+              password: password
+            });
             global.uEmail = email;
             await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
           }

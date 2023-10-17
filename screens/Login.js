@@ -6,6 +6,7 @@ import { doc, setDoc, collection, addDoc, Timestamp, getDoc } from 'firebase/fir
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { StackActions, NavigationActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GetUsetData } from '../function/get_data';
 
 export default function Login({ navigation }) {
   const auth = FIREBASE_AUTH;
@@ -33,16 +34,16 @@ export default function Login({ navigation }) {
             email: email,
             password: password
           });;
-              // แก้ error The action 'REPLACE' with payload {"name":{"name":"Insert Pin","params":{"email":"ball2@gmail.com","password":"123456"}}} was not handled by any navigator.Do you have a screen named '[object Object]'?
+          // แก้ error The action 'REPLACE' with payload {"name":{"name":"Insert Pin","params":{"email":"ball2@gmail.com","password":"123456"}}} was not handled by any navigator.Do you have a screen named '[object Object]'?
           navigation.replace('Insert Pin', {
             email: email,
             password: password
           });
           // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
         } else {
-          navigation.replace('Set Pin' ,{
-              email: email,
-              password: password
+          navigation.replace('Set Pin', {
+            email: email,
+            password: password
           });
           // global.uEmail = email;
           // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
@@ -88,6 +89,7 @@ export default function Login({ navigation }) {
     }
   }
   async function checkLoginStatus() {
+   
     try {
       // ตรวจสอบข้อมูลการล็อกอินใน AsyncStorage
       const userd = await AsyncStorage.getItem('user');
@@ -98,25 +100,23 @@ export default function Login({ navigation }) {
         try {
           const respones = await signInWithEmailAndPassword(auth, userData.email, userData.password)
 
-          if (respones)
-          if (await CheckUserIsHavePininFirestore()) {
-            navigation.replace('Insert Pin', {
-              email: email,
-              password: password
-            });;
-                // แก้ error The action 'REPLACE' with payload {"name":{"name":"Insert Pin","params":{"email":"ball2@gmail.com","password":"123456"}}} was not handled by any navigator.Do you have a screen named '[object Object]'?
-            navigation.replace('Insert Pin', {
-              email: email,
-              password: password
-            });
-            // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
-          } else {
-            navigation.replace('Set Pin' ,{
+          if (respones) {
+            if (await CheckUserIsHavePininFirestore()) {
+              navigation.replace('Insert Pin', {
                 email: email,
                 password: password
-            });
-            // global.uEmail = email;
-            // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
+              });;
+              // แก้ error The action 'REPLACE' with payload {"name":{"name":"Insert Pin","params":{"email":"ball2@gmail.com","password":"123456"}}} was not handled by any navigator.Do you have a screen named '[object Object]'?
+           
+              // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
+            } else {
+              navigation.replace('Set Pin', {
+                email: email,
+                password: password
+              });
+              // global.uEmail = email;
+              // await AsyncStorage.setItem('user', JSON.stringify({ email, password }));
+            }
           }
           return true;
         }

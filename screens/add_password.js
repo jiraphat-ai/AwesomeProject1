@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 
 
-function Add_password() {
+function Add_password({navigation}) {
   const [emailValue, setEmailValue] = useState('');
   const [userValue, setuserValue] = useState('');
   const [pwValue, setpwValue] = useState('');
@@ -36,20 +36,25 @@ function Add_password() {
   };
 
   const SaveBTN = async () => {
-    let En = Encrypt(pwValue);
-    let De = Decrypt(En);
+    try{
+    let En = await Encrypt(pwValue);
+    let De = await Decrypt(En);
     console.log("En", En, "De", De)
-    // ทำสิ่งที่คุณต้องการเมื่อปุ่ม 1 ถูกกด
-    //  await addToFirestore("password_entry" , auth.currentUser.uid , {
-    //     URL : urlValue,
-    //     date_created : Timestamp.now(),
-    //     date_updated : Timestamp.now(),
-    //     password : Encrypt(pwValue),
-    //     username : Encrypt(userValue),
-    //     tag : emailValue
-    //   })
+   
+     await addToFirestore("password_entry" , auth.currentUser.uid , {
+        URL : urlValue,
+        date_created : Timestamp.now(),
+        date_updated : Timestamp.now(),
+        password : await Encrypt(pwValue),
+        username : await Encrypt(userValue),
+        tag : emailValue
+      }).then(() => {
+        navigation.goBack();
+      })
 
-  };
+  }catch(error){
+    console.log(error)
+  };}
   //88
 
   const handleButton2Press = () => {

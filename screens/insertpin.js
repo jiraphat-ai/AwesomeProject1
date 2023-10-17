@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { FIRESTORE_DB , FIREBASE_AUTH } from '../FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Decrypt } from '../function/aes';
 
 export default function InsertPin({ navigation, route}) {
     const db = FIRESTORE_DB;
@@ -19,6 +20,7 @@ export default function InsertPin({ navigation, route}) {
 
             if (docSnap.exists()) {
                 const data = docSnap.data();
+                data.pin = await Decrypt(data.pin);
                 if (data.pin === pin) {
                     console.log('PIN is correct!');
                     await AsyncStorage.setItem('user', JSON.stringify({ email, password })).then(() => {

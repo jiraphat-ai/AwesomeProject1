@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, StyleSheet, Text } from 'react-native';
-import { FIRESTORE_DB , FIREBASE_AUTH} from '../FirebaseConfig';
+import { FIRESTORE_DB, FIREBASE_AUTH } from '../FirebaseConfig';
 import { doc, setDoc, collection, addDoc, Timestamp } from 'firebase/firestore';
+import { Encrypt } from '../function/aes';
 
 
-const SetPinAndConfirmScreen = ({navigation , route}) => {
+const SetPinAndConfirmScreen = ({ navigation, route }) => {
     const params = route.params;
     const email = params.email;
     const password = params.password;
@@ -12,20 +13,27 @@ const SetPinAndConfirmScreen = ({navigation , route}) => {
     const [confirmPin, setConfirmPin] = useState('');
     const db = FIRESTORE_DB
     const handleUpdatePinToFireStore = async () => {
-        const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
-        setDoc(docRef, {
-            pin: pin,
-        }, { merge: true });
+        try {
+            const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
+            console.log(pin)
+            setDoc(docRef, {
+                pin: await Encrypt(pin),
+            }, { merge: true });
 
-        Alert.alert('Success', 'Your PIN has been updated.');
-        //หลังจากกด ok ที่ Alert แล้วให้กลับไปหน้า Login
-        navigation.replace('Insert Pin',{
-            email :email,
-            password : password
-        });
-      
+            Alert.alert('Success', 'Your PIN has been updated.');
+            //หลังจากกด ok ที่ Alert แล้วให้กลับไปหน้า Login
+            navigation.replace('Insert Pin', {
+                email: email,
+                password: password
+            });
+        } catch (error) {
+            console.log(error)
+        }
+
     };
 
+
+    
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Enter your 6-digit PIN</Text>
@@ -61,7 +69,7 @@ const SetPinAndConfirmScreen = ({navigation , route}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        
+
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: 20,

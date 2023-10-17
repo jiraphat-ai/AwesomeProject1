@@ -25,6 +25,13 @@ export default function Home({ navigation }) {
     setItems(data);
   }
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getDataCur();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
   useEffect( () => {
     getDataCur()
 
@@ -67,7 +74,7 @@ export default function Home({ navigation }) {
           }}>
             <Card.Title
             title={item.URL}
-            subtitle={item.tag}
+            subtitle={new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(item.date_updated)}
             left={(props) => <Avatar.Icon {...props} icon={item.icon ? item.icon : 'folder'} />}
             right={(props) => <IconButton {...props} icon="dots-vertical"  />}
           /></TouchableOpacity>

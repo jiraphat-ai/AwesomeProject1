@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState  , useEffect} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createStackNavigator } from '@react-navigation/stack';
+import { GetUsetData } from '../function/get_data';
+import { UpdateUserData } from '../function/Add_data';
 
 function Account_edit() {
+  const [data, setData] = useState({}); // สถานะสำหรับชื่อผู้ใช้
   const [text1, setText1] = useState('');
   const [text2, setText2] = useState('');
   const [text3, setText3] = useState('');
   const [text4, setText4] = useState('');
 
+async function GetInfo() {
+    const dataFetch = await GetUsetData();
+    setData(dataFetch)
+    setText1(dataFetch.email)
+    setText2(dataFetch.name)
+    setText3(dataFetch.hint)
+    
+    console.log(dataFetch)
+}
+
+
+
+  useEffect(() => {
+    GetInfo()
+  } ,{})
+
   const handleSave = () => {
+    const data = {
+      email: text1,
+      name: text2,
+      hint: text3
+    }
+    UpdateUserData(data)
     console.log('ข้อความที่กล่อง 1:', text1);
     console.log('ข้อความที่กล่อง 2:', text2);
     console.log('ข้อความที่กล่อง 3:', text3);

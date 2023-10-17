@@ -1,28 +1,49 @@
 import CryptoJS from 'crypto-js';
+import { useEffect, useState } from 'react';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
+import { GetUsetData } from './get_data';
 
 
 
 
 
- function Encrypt(plainText) {
-    const secretKey = FIREBASE_AUTH.currentUser.uid;
-    const encryptedText = CryptoJS.AES.encrypt(plainText, secretKey,{
-        keysize: 256
 
-    }).toString();
-    console.log('Encrypted Text:', encryptedText);
-    console.log('Key:', secretKey);
-    return encryptedText
+
+
+
+
+
+async function Encrypt(plainText) {
+    try {
+        const userData = await GetUsetData();
+        const secretKey = userData.key;
+        const encryptedText = CryptoJS.AES.encrypt(plainText, secretKey, {
+            keySize: 256
+        });
+        console.log('Encrypted Text:', encryptedText.toString());
+        console.log('Key:', secretKey);
+        return encryptedText.toString();
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
 }
-function Decrypt(encryptedText) {
-    const secretKey = FIREBASE_AUTH.currentUser.uid;
-    const decryptedBytes = CryptoJS.AES.decrypt(encryptedText, secretKey,{
-        keysize: 256
-    });
-    const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
-    console.log('Decrypted Text:', decryptedText);
-    return decryptedText
+ async function Decrypt(encryptedText) {
+    try {
+        const userData = await GetUsetData();
+        const secretKey = userData.key;
+        const decryptedBytes = CryptoJS.AES.decrypt(encryptedText, secretKey,{
+            keysize: 256
+        });
+        const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
+        console.log('Decrypted Text:', decryptedText);
+        return decryptedText.toString()
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+  
+  
     
 }
 

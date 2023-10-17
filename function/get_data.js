@@ -47,5 +47,17 @@ async function fetchDocumentOnce(documentId) {
     }
 }
 
-export { FetchDataPassword ,fetchDocumentOnce }
+async function GetUsetData() {  
+    const db = FIRESTORE_DB;
+    const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        return { id: docSnap.id, ...docSnap.data() };
+    } else {
+        throw new Error("Document not found");}
+
+    }
+
+export { FetchDataPassword ,fetchDocumentOnce ,GetUsetData}
 // เรียกใช้งานฟังก์ชันเพื่อดึงข้อมูล

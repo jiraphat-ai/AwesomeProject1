@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet , Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { fetchDocumentOnce } from '../function/get_data';
 import { Decrypt } from '../function/aes';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { DeleteDoc } from '../function/Add_data';
 
 
 
@@ -51,6 +52,13 @@ function View_item({ navigation, route }) {
 
   }
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      GetInfo(route.params?.id);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
+  useEffect(() => {
     GetInfo(route.params?.id)
   }, [])
   return (
@@ -69,10 +77,10 @@ function View_item({ navigation, route }) {
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <InfoItem text="" marginTop={10} color="gray" />
         <InfoItem text={password} marginTop={15} fontWeight="bold" color="gray" />
-        <Icon onPress={() => {
+        <Icon onPress={async ()  => {
           if (!eye) {
-            setUser(Decrypt(data.username));
-            setPass(Decrypt(data.password));
+            setUser(await Decrypt(data.username));
+            setPass(await Decrypt(data.password));
           }
           else {
             setUser("************");
@@ -96,8 +104,25 @@ function View_item({ navigation, route }) {
       <InfoItem text="Updated : " marginTop={100} color="gray" marginLeft={10} fontSize={10} />
       <InfoItem text="Password Updated : " color="gray" marginLeft={10} fontSize={10} />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Icon onPress={() => navigation.navigate("Edit Item")} name="edit" size={50} color="#369EFF" style={{ marginTop: 50, marginLeft: 300 }} />
-        <Icon name="trash" size={50} color="black" style={{ marginTop: 45, marginLeft: 20 }} /></View>
+        <Icon onPress={() => navigation.navigate({
+              name: 'Edit Item', 
+              params: data
+            })} name="edit" size={50} color="#369EFF" style={{ marginTop: 50, marginLeft: 300 }} />
+        <Icon name="trash" size={50} color="black" onPress={()=>{
+          Alert.alert(
+            "Confirm Delete",
+            "Are you sure you want to delete this item?",
+            [
+              {
+                text: "Cancel",
+                style: "cancel"
+              },
+              { text: "OK", onPress: () => DeleteDoc("password_entry",data.id).then(() => {
+                navigation.goBack();
+              }) }
+            ]
+          );
+        }} style={{ marginTop: 45, marginLeft: 20 }} /></View>
     </View>
   );
 }
