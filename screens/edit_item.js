@@ -22,7 +22,7 @@ function EditItem({ navigation, route }) {
   const [username, setUsername] = useState(''); // สถานะสำหรับชื่อผู้ใช้
   const [password, setPassword] = useState(''); // สถานะสำหรับรหัสผ่าน
   const [url, setUrl] = useState(''); // สถานะสำหรับ URL
-
+const [eye, setEye] = useState(true)
   async function setData(){
     setName(data.tag)
     setUsername(await Decrypt(data.username))
@@ -66,8 +66,11 @@ function EditItem({ navigation, route }) {
           value={password}
           onChangeText={setPassword}
           placeholder="password"
+          secureTextEntry={eye}
         />
-        <Icon name="eye" size={20} color="black" style={{ marginLeft: 20 }} />
+        <Icon name="eye" size={20} color="black" onPress={()=>{
+          setEye(!eye)
+        }} style={{ marginLeft: 20 }} />
         
       </View>
       <InfoItem text="URL" marginTop={20} />
@@ -84,12 +87,12 @@ function EditItem({ navigation, route }) {
       <InfoItem text="Last Updated : " marginTop={100} color="gray" marginLeft={10} fontSize={10} />
       <InfoItem text="Last Password Updated : " color="gray" marginLeft={10} fontSize={10} />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Icon name="save" size={50} color="red" onPress={() =>{
+              <Icon name="save" size={50} color="red" onPress={async ()  =>{
         const updateData = {
           tag: name,
           date_updated : Timestamp.now(),
-          username: Encrypt(username),
-          password: Encrypt(password),
+          username: await Encrypt(username),
+          password: await Encrypt(password),
           URL: url,
         };
         console.log(data.id)

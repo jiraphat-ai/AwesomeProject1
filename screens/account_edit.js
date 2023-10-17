@@ -11,6 +11,7 @@ function Account_edit() {
   const [text2, setText2] = useState('');
   const [text3, setText3] = useState('');
   const [text4, setText4] = useState('');
+  const [eye, setEye] = useState(true);
 
 async function GetInfo() {
     const dataFetch = await GetUsetData();
@@ -22,7 +23,17 @@ async function GetInfo() {
     console.log(dataFetch)
 }
 
+var maxlength = 32
+var minlength = 12
+function GennaratePasswordSecurity() {
 
+  charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()",
+  retVal = "";
+for (var i = 0, n = charset.length; i < maxlength; ++i) {
+  retVal += charset.charAt(Math.floor(Math.random() * n));
+}
+setText3(retVal)
+}
 
   useEffect(() => {
     GetInfo()
@@ -74,10 +85,14 @@ async function GetInfo() {
           placeholder="Master Password"
           onChangeText={setText3}
           value={text3}
+          secureTextEntry={eye}
         />
-        <Icon name="eye" size={20} color="black" />
-        <Icon name="copy" size={20} color="black" style={{marginHorizontal:10,}}/>
-        <Icon name="exchange" size={15} color="black"style={{marginHorizontal:10,}} />
+        <Icon name="eye" size={20} onPress={()=>{
+          setEye(!eye)
+        }} color="black" />
+        <Icon name="exchange" size={15} onPress={()=>{
+          GennaratePasswordSecurity()
+        }} color="black"style={{marginHorizontal:10,}} />
       </View>
 
       <View style={styles.textInput}>

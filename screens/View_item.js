@@ -100,9 +100,6 @@ function View_item({ navigation, route }) {
         <Icon name="copy" size={20} color="black" style={{ marginLeft: 20 }} /></View>
       <View style={styles.line}></View>
 
-
-      <InfoItem text="Updated : " marginTop={100} color="gray" marginLeft={10} fontSize={10} />
-      <InfoItem text="Password Updated : " color="gray" marginLeft={10} fontSize={10} />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Icon onPress={() => navigation.navigate({
               name: 'Edit Item', 

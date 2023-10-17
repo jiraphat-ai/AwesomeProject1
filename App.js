@@ -84,10 +84,7 @@ function App() {
 
     <NavigationContainer>
 
-      <Stack.Navigator initialRouteName={user ? "My Password" : "Login"}
-        screenOptions={{
-          header: CustomNavigationBar,
-        }}>
+      <Stack.Navigator initialRouteName={user ? "My Password" : "Login"}>
         <Stack.Screen name="Login" component={Login}
           options={{
             headerShown: false, // ทำให้ App Bar ซ่อนตัวทั้งหมด
