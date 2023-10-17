@@ -22,11 +22,16 @@ function EditItem({ navigation, route }) {
   const [username, setUsername] = useState(''); // สถานะสำหรับชื่อผู้ใช้
   const [password, setPassword] = useState(''); // สถานะสำหรับรหัสผ่าน
   const [url, setUrl] = useState(''); // สถานะสำหรับ URL
+
+  async function setData(){
+    setName(data.tag)
+    setUsername(await Decrypt(data.username))
+    setPassword(await Decrypt(data.password))
+     setUrl(data.URL)
+  }
+
   useEffect(() => {
-   setName(data.tag)
-   setUsername(Decrypt(data.username))
-   setPassword(Decrypt(data.password))
-    setUrl(data.URL)
+    setData()
   }, [])
   return (
     <View>
