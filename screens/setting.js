@@ -1,11 +1,33 @@
 import { signOut } from 'firebase/auth';
 import React, { useState } from 'react';
-import { View, Text, Switch, StyleSheet ,TouchableOpacity } from 'react-native';
+import { View, Text, Switch, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
-function SettingsPage({navigation}) {
+import { DeleteAccount } from '../function/get_data';
+function SettingsPage({ navigation }) {
   const [isTwoFactorAuthEnabled, setTwoFactorAuthEnabled] = useState(false);
+
+  function HandleDeleteAccount() {
+    Alert.alert(
+      "Confirm Delete",
+      "Are you sure you want to delete this Account?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel"
+        },
+        {
+          text: "OK", onPress: async () => {
+            DeleteAccount()
+            AsyncStorage.clear()
+            navigation.replace('Login')
+          }
+
+        }
+      ]
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -26,26 +48,29 @@ function SettingsPage({navigation}) {
           />
         </View>
       </View>
-    <TouchableOpacity onPress={() => navigation.navigate("Account_edit")}>
-      <View style={styles.accountRow}>
-        <Text style={styles.accountText}>My Account</Text>
-        <Icon name="pencil" size={20} color="black" style={styles.icon} />
-      </View>
+      <TouchableOpacity onPress={() => navigation.navigate("Account_edit")}>
+        <View style={styles.accountRow}>
+          <Text style={styles.accountText}>My Account</Text>
+          <Icon name="pencil" size={20} color="black" style={styles.icon} />
+        </View>
       </TouchableOpacity>
-
-       <View style={styles.accountRow}>
-        <Text style={styles.accountText}>Delete</Text>
-        <Icon name="trash" size={20} color="black" style={styles.icon} />
-      </View>
-
-      <TouchableOpacity onPress={async () => await signOut(FIREBASE_AUTH).then(()=>{
+      <TouchableOpacity onPress={ () => {
+         HandleDeleteAccount()
+      }
+      } >
+        <View style={styles.accountRow}>
+          <Text style={styles.accountText}>Delete</Text>
+          <Icon name="trash" size={20} color="black" style={styles.icon} />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={async () => await signOut(FIREBASE_AUTH).then(() => {
         AsyncStorage.clear()
         navigation.replace('Login')
       })}>
-       <View style={styles.accountRow}>
-        <Text style={styles.accountText}>Log Out</Text>
-        <Icon name="sign-out" size={20} color="black" style={styles.icon} />
-      </View>
+        <View style={styles.accountRow}>
+          <Text style={styles.accountText}>Log Out</Text>
+          <Icon name="sign-out" size={20} color="black" style={styles.icon} />
+        </View>
       </TouchableOpacity>
     </View>
   );
@@ -79,10 +104,10 @@ const styles = StyleSheet.create({
   twoFactorRow: {
     flexDirection: 'row',
     alignItems: 'center',
-     width: 300,
+    width: 300,
     height: 50,
-    
-    
+
+
   },
   twoFactorText: {
     fontSize: 16,
@@ -99,7 +124,7 @@ const styles = StyleSheet.create({
   accountText: {
     flex: 1,
     fontWeight: 'bold',
-     fontSize: 16,
+    fontSize: 16,
   },
   icon: {
     marginRight: 10,

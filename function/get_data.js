@@ -1,4 +1,4 @@
-import { collection, getDocs ,doc,getDoc} from "firebase/firestore";
+import { collection, getDocs ,doc,getDoc ,deleteDoc} from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../FirebaseConfig";
 import { Decrypt } from "./aes";
 
@@ -59,5 +59,16 @@ async function GetUsetData() {
 
     }
 
-export { FetchDataPassword ,fetchDocumentOnce ,GetUsetData}
+
+async function DeleteAccount(){
+    const db = FIRESTORE_DB;
+    const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
+    await deleteDoc(docRef);
+    console.log("Document successfully deleted!");
+    await FIREBASE_AUTH.currentUser.delete();
+    console.log("User successfully deleted!");
+  
+}
+
+export { FetchDataPassword ,fetchDocumentOnce ,GetUsetData ,DeleteAccount}
 // เรียกใช้งานฟังก์ชันเพื่อดึงข้อมูล
