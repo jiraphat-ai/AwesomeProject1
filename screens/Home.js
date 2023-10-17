@@ -74,7 +74,7 @@ export default function Home({ navigation }) {
           }}>
             <Card.Title
             title={item.URL}
-            subtitle={new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit'}).format(item.date_updated)}
+            subtitle={item.date_updated.toDate().toString("dd/MM/yyyy")}
             left={(props) => <Avatar.Icon {...props} icon={item.icon ? item.icon : 'folder'} />}
             right={(props) => <IconButton {...props} icon="dots-vertical"  />}
           /></TouchableOpacity>
