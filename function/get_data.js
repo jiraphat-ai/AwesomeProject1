@@ -1,4 +1,4 @@
-import { collection, getDocs ,doc,getDoc ,deleteDoc} from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../FirebaseConfig";
 import { Decrypt } from "./aes";
 
@@ -24,9 +24,9 @@ async function FetchDataPassword() {
     }
 }
 
-async function fetchDocumentData( documentId) {
+async function fetchDocumentData(documentId) {
     const db = FIRESTORE_DB;
-    const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid ,"password_entry" , documentId);
+    const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid, "password_entry", documentId);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
         return { id: docSnap.id, ...docSnap.data() };
@@ -38,7 +38,7 @@ async function fetchDocumentData( documentId) {
 // ตัวอย่างการใช้งาน
 async function fetchDocumentOnce(documentId) {
     try {
-        const data = await fetchDocumentData( documentId);
+        const data = await fetchDocumentData(documentId);
         console.log("Data from Firestore:", data);
         return data;
         // นำข้อมูลที่ได้มาใช้งานแสดงในแอปพลิเคชันของคุณ
@@ -47,7 +47,7 @@ async function fetchDocumentOnce(documentId) {
     }
 }
 
-async function GetUsetData() {  
+async function GetUsetData() {
     const db = FIRESTORE_DB;
     const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
     const docSnap = await getDoc(docRef);
@@ -55,20 +55,35 @@ async function GetUsetData() {
         console.log("Document data:", docSnap.data());
         return { id: docSnap.id, ...docSnap.data() };
     } else {
-        throw new Error("Document not found");}
-
+        throw new Error("Document not found");
     }
 
+}
 
-async function DeleteAccount(){
+
+async function DeleteAccount() {
     const db = FIRESTORE_DB;
     const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
     await deleteDoc(docRef);
     console.log("Document successfully deleted!");
     await FIREBASE_AUTH.currentUser.delete();
     console.log("User successfully deleted!");
-  
+
 }
 
-export { FetchDataPassword ,fetchDocumentOnce ,GetUsetData ,DeleteAccount}
+async function DeleteFieldPin(field) {
+    const db = FIRESTORE_DB;
+    const docRef = doc(db, "users", FIREBASE_AUTH.currentUser.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+        const data = docSnap.data();
+        delete data[field];
+        await setDoc(docRef, data)
+        console.log("Document successfully updated!");
+    } else {
+        throw new Error("Document not found");
+    }
+}
+
+export { FetchDataPassword, fetchDocumentOnce, GetUsetData, DeleteAccount, DeleteFieldPin }
 // เรียกใช้งานฟังก์ชันเพื่อดึงข้อมูล

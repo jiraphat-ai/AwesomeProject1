@@ -4,7 +4,7 @@ import { View, Text, Switch, StyleSheet, TouchableOpacity, Alert } from 'react-n
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FIREBASE_AUTH } from '../FirebaseConfig';
-import { DeleteAccount } from '../function/get_data';
+import { DeleteAccount, DeleteFieldPin } from '../function/get_data';
 function SettingsPage({ navigation }) {
   const [isTwoFactorAuthEnabled, setTwoFactorAuthEnabled] = useState(false);
 
@@ -54,8 +54,8 @@ function SettingsPage({ navigation }) {
           <Icon name="pencil" size={20} color="black" style={styles.icon} />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={ () => {
-         HandleDeleteAccount()
+      <TouchableOpacity onPress={() => {
+        HandleDeleteAccount()
       }
       } >
         <View style={styles.accountRow}>
@@ -63,10 +63,18 @@ function SettingsPage({ navigation }) {
           <Icon name="trash" size={20} color="black" style={styles.icon} />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={async () => await signOut(FIREBASE_AUTH).then(() => {
-        AsyncStorage.clear()
-        navigation.replace('Login')
-      })}>
+      <TouchableOpacity onPress={async () => {
+        try {
+          await DeleteFieldPin("pin")
+          await signOut(FIREBASE_AUTH).then(() => {
+            AsyncStorage.clear()
+            navigation.replace('Login')
+          })
+        } catch (error) {
+          console.log(error)
+        }
+       
+      }}>
         <View style={styles.accountRow}>
           <Text style={styles.accountText}>Log Out</Text>
           <Icon name="sign-out" size={20} color="black" style={styles.icon} />
