@@ -154,7 +154,14 @@ function Add_password({navigation}) {
           style={{ ...styles.textInput, borderColor: 'black', borderWidth: 1, backgroundColor: '#FEF9F9' }}
           placeholder=" XXX@gmail.com             "
           value={userValue}
-          onChangeText={(text) => setuserValue(text)}
+          onChangeText={(text) => {
+            if (text.length <= 32) {
+              setuserValue(text)
+            }
+            else{
+              alert("Username must be less than 32 characters.")
+            }
+          }}
         /><Icon style={{ marginLeft: 15 }} name="copy" size={20} color="black" />
       </View>
 

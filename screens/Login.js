@@ -3,7 +3,7 @@ import { Text, StyleSheet, TextInput, Button, View, Alert } from 'react-native';
 import { firebase } from '@firebase/app';
 import { FIREBASE_AUTH, FIRESTORE_DB } from '../FirebaseConfig';
 import { doc, setDoc, collection, addDoc, Timestamp, getDoc } from 'firebase/firestore';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword ,sendEmailVerification } from 'firebase/auth';
 import { StackActions, NavigationActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GetUsetData } from '../function/get_data';
@@ -28,6 +28,9 @@ export default function Login({ navigation }) {
   const UserLogin = async () => {
     try {
       const respones = await signInWithEmailAndPassword(auth, email, password)
+      const user = respones.user;
+      await sendEmailVerification(user);
+      alert("Email sent");
       if (respones)
         if (await CheckUserIsHavePininFirestore()) {
           navigation.replace('Insert Pin', {
