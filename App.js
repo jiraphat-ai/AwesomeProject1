@@ -214,7 +214,7 @@ function App() {
         <Stack.Screen name="View_item" component={View_item}
 
           options={{
-            title: 'Delete',
+            title: 'View item',
             headerStyle: {
               backgroundColor: '#369EFF',
             },

@@ -6,7 +6,7 @@ import { doc, setDoc, collection, addDoc, Timestamp, getDoc } from 'firebase/fir
 import { signInWithEmailAndPassword ,sendEmailVerification } from 'firebase/auth';
 import { StackActions, NavigationActions } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GetUsetData } from '../function/get_data';
+import { GetUsetData, ResetPassWordAuth } from '../function/get_data';
 
 export default function Login({ navigation }) {
   const auth = FIREBASE_AUTH;
@@ -173,6 +173,7 @@ export default function Login({ navigation }) {
       />
 
       <Text style={styles.register} onPress={() => navigation.navigate('Register')}>Register?</Text>
+      <Text style={styles.register} onPress={() => ResetPassWordAuth(email)}>Forget password?</Text>
       <View style={styles.loginButton}>
         <Button color='#000001' title="Login" onPress={() => UserLogin()} />
       </View>

@@ -1,6 +1,7 @@
 import { collection, getDocs, doc, getDoc, deleteDoc, setDoc } from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "../FirebaseConfig";
 import { Decrypt } from "./aes";
+import {sendPasswordResetEmail} from 'firebase/auth';
 
 async function fetchCollectionPassword(collectionName) {
     const db = FIRESTORE_DB;
@@ -85,5 +86,12 @@ async function DeleteFieldPin(field) {
     }
 }
 
-export { FetchDataPassword, fetchDocumentOnce, GetUsetData, DeleteAccount, DeleteFieldPin }
+async function ResetPassWordAuth(email) {
+    await sendPasswordResetEmail(FIREBASE_AUTH , email);
+    console.log("Email sent!");
+}
+
+
+
+export { FetchDataPassword, fetchDocumentOnce, GetUsetData, DeleteAccount, DeleteFieldPin ,ResetPassWordAuth }
 // เรียกใช้งานฟังก์ชันเพื่อดึงข้อมูล
